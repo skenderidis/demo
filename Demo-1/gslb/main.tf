@@ -5,6 +5,8 @@ module "gslb-us" {
   source    = "./modules"
   location  = "eastus"
   rg_prefix    = "GSLB-east"
+  username	= var.username
+  password	= var.password
 }
 
 resource "null_resource" "GSLB-info" {

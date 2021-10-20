@@ -9,3 +9,6 @@ variable client_id				{}
 variable client_secret  		{}
 variable tenant_id				{}
 
+######### Azure authentication variables #########
+variable username		  		{default = "azureuser"}
+variable password		  		{default = "Kostas123"}

@@ -3,7 +3,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - ../gslb_info.json
+    - /tmp/gslb_info.json
   gather_facts: false
   vars:
     provider:

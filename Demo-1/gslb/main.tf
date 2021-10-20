@@ -19,3 +19,4 @@ resource "null_resource" "GSLB-info" {
     on_failure = continue
   }
 }
+

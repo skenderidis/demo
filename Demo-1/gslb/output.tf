@@ -1,5 +1,5 @@
 
-#output "GSLB" {
-#  value = module.gslb[*]
-#}
+output "GSLB" {
+  value = module.gslb[*]
+}
 

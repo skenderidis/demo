@@ -13,6 +13,19 @@
       validate_certs: no
       server_port: 443
   tasks:
+  - name: Create a DNS Listener
+    uri:
+      url: https://{{mgmt_ip}}/mgmt/tm/gtm/listener/
+      user: "{{f5_user}}"
+      password: "{{f5_pass}}"
+      method: POST
+      body: "{\"name\": \"listener\",\"address\": \"{{dns_private_ip}}\",\"port\": 53}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200,202]
+    register: gtm_listener_add_POST_return
+
   - name: Create GSLB DC
     bigip_gtm_datacenter:
       name: "AWS"

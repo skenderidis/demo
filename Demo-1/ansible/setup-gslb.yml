@@ -28,7 +28,7 @@
 
   - name: Create GSLB DC
     bigip_gtm_datacenter:
-      name: "AWS"
+      name: "Azure"
       provider: "{{ provider }}"
     delegate_to: localhost
 

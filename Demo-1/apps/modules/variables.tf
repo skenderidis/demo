@@ -9,6 +9,7 @@ variable allowedIPs				{default = ["0.0.0.0/0"]}
 variable password		  		{default = "Kostas580"}
 variable username		  		{default = "azureuser"}
 
+variable gtm_ip  			{default = ""}
 
 ###########   App  Variables   ############
 

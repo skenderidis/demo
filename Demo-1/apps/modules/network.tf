@@ -79,14 +79,3 @@ resource "azurerm_network_security_group" "nsg" {
 
 
 
-resource "null_resource" "add-member" {
-  provisioner "local-exec" {
-      command = <<EOT
-curl --location -k --request POST 'https://13.90.59.154/mgmt/tm/gtm/server/' \
---header 'Content-Type: application/json' \
---user azureuser:Kostas123 \
---data-raw '{"name": "test2","datacenter": "/Common/AWS","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "5.5.5.7","deviceName": "test2","translation": "none"}],"virtualServers": [{"name": "website2","destination": "5.5.5.9:80","enabled": true}]}'
-EOT
-  }
-
-}

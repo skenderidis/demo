@@ -97,3 +97,14 @@ data "template_file" "linux-vm-cloud-init" {
   template = file("./modules/docker-init.sh")
 }
 
+
+resource "null_resource" "add-member-01" {
+  provisioner "local-exec" {
+      command = <<EOT
+        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
+        --header 'Content-Type: application/json' \
+        --user ${var.username}:${var.password} \
+        --data-raw '{"name": "${azurerm_linux_virtual_machine.web-linux-vm.name}","datacenter": "/Common/Azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","deviceName": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","translation": "none"}],"virtualServers": [{"name": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","destination": "${azurerm_public_ip.web-linux-vm-ip.ip_address}:80","enabled": true}]}'
+      EOT
+  }
+}

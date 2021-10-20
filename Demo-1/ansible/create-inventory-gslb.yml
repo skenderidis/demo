@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars_files:
+    - ../gslb_info.json
+  tasks:
+   
+  - name: Generate gtm-inventory
+    template:
+      src=templates/f5-inventory.j2
+      dest=gtm-inventory.ini
+
+

@@ -1,0 +1,29 @@
+---
+- name: Configuring F5 GSLB
+  hosts: gtm-group
+#  connection: local
+  gather_facts: false
+  vars:
+    provider:
+      password: "{{ f5_pass}}"
+      server: "{{inventory_hostname}}"
+      user: "{{f5_user}}"
+      validate_certs: no
+      server_port: 443
+  tasks:
+  - name: Use REST to perform gtm_add on all devices **except** us_east_2
+    uri:
+      url: https://{{inventory_hostname}}/mgmt/tm/gtm/gtm_add
+      user: "{{f5_user}}"
+      password: "{{f5_pass}}"
+      method: POST
+      body: "{\"command\":\"run\",\"options\":[{\"ssh-password\":\"{{f5_pass}}\",\"f5_user@{{remote}}\":\"\"}]}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200,202]
+    register: gtm_add_add_POST_return
+
+
+  - debug:
+      msg: "{{ gtm_add_add_POST_return.stdout }}"

@@ -1,0 +1,158 @@
+---
+- name: Configuring F5 GSLB
+  hosts: localhost
+  connection: local
+  vars_files:
+    - ../gslb_info.json
+  gather_facts: false
+  vars:
+    provider:
+      password: "{{f5_pass}}"
+      server: "{{mgmt_ip}}"
+      user: "{{f5_user}}"
+      validate_certs: no
+      server_port: 443
+  tasks:
+  - name: Create GSLB DC
+    bigip_gtm_datacenter:
+      name: "AWS"
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create Europe Region
+    bigip_gtm_topology_region:
+      name: Europe
+      region_members:
+        - continent: AF
+        - continent: EU
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create America Region
+    bigip_gtm_topology_region:
+      name: USA
+      region_members:
+        - continent: NA
+        - continent: SA
+        - continent: --
+        - continent: AN
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create Asia Region
+    bigip_gtm_topology_region:
+      name: Asia
+      region_members:
+        - continent: OC
+        - continent: AS
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+
+  - name: Create a Europe GTM pool
+    bigip_gtm_pool:
+      name: Europe_pool
+      preferred_lb_method: topology
+      alternate_lb_method: round-robin
+      ttl: 10
+      type: a
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create a America GTM pool
+    bigip_gtm_pool:
+      name: America_pool
+      preferred_lb_method: topology
+      alternate_lb_method: round-robin
+      ttl: 10
+      type: a
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create a Asia GTM pool
+    bigip_gtm_pool:
+      name: Asia_pool
+      preferred_lb_method: topology
+      alternate_lb_method: round-robin
+      ttl: 10
+      type: a
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+
+  - name: Create a Europe GTM App pool
+    bigip_gtm_pool:
+      name: App_europe_pool
+      preferred_lb_method: round-robin
+      alternate_lb_method: round-robin
+      ttl: 10
+      type: a
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create a America GTM App pool
+    bigip_gtm_pool:
+      name: App_america_pool
+      preferred_lb_method: round-robin
+      alternate_lb_method: round-robin
+      ttl: 10
+      type: a
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create a Asia GTM App pool
+    bigip_gtm_pool:
+      name: App_asia_pool
+      preferred_lb_method: round-robin
+      alternate_lb_method: round-robin
+      ttl: 10
+      type: a
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create www.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: topology
+      last_resort_pool: America_pool
+      name: www.f5demo.cloud
+      type: a
+      pools:
+        - name: America_pool
+        - name: Europe_pool
+        - name: Asia_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+
+  - name: Create eu.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: topology
+      last_resort_pool: App_europe_pool
+      name: eu.f5demo.cloud
+      type: a
+      pools:
+        - name: App_europe_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create us.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: topology
+      last_resort_pool: App_america_pool
+      name: us.f5demo.cloud
+      type: a
+      pools:
+        - name: App_america_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create as.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: topology
+      last_resort_pool: App_asia_pool
+      name: as.f5demo.cloud
+      type: a
+      pools:
+        - name: App_asia_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost

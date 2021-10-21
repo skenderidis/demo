@@ -10,6 +10,8 @@ variable password		  		{default = "Kostas580"}
 variable username		  		{default = "azureuser"}
 
 variable gtm_ip  			{default = ""}
+variable pool  			  {default = ""}
+
 
 ###########   App  Variables   ############
 

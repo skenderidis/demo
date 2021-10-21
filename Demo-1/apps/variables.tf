@@ -9,3 +9,5 @@ variable client_id				{}
 variable client_secret  		{}
 variable tenant_id				{}
 
+variable gtm_ip  			{default = ""}
+variable pool  			  {default = ""}

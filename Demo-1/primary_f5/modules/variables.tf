@@ -17,6 +17,9 @@ variable username		  		{default = "azureuser"}
 variable location				{default = "eastus"}
 variable rg_prefix				{default = "ks"}
 
+variable gtm_ip  			{default = ""}
+variable pool  			  {default = ""}
+
 ###########   F5  Variables   ############
 variable f5_rg_name				{default = "bigip-rg" }
 variable f5_vnet_name  			{default = "secure_vnet"}

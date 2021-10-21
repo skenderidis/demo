@@ -112,7 +112,7 @@ resource "null_resource" "add-server-02" {
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
         --header 'Content-Type: application/json' \
         --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/Azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
+        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
       EOT
   }
   provisioner "local-exec" {

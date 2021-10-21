@@ -11,11 +11,12 @@ variable username		  		{default = "azureuser"}
 
 variable gtm_ip  			{default = ""}
 variable pool  			  {default = ""}
+variable rg_prefix  			{default = ""}
 
 
 ###########   App  Variables   ############
 
-variable rg_name  			{default = "test-rg"}
+variable rg_name  			{default = "app-rg"}
 variable vnet_name  		{default = "apps_vnet"}
 variable vnet_cidr  		{default = "10.10.30.0/24"}
 variable subnet_name  		{default = "default"}

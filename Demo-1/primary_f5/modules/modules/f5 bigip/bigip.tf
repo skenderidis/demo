@@ -135,23 +135,6 @@ data "template_file" "f5_bigip_onboard" {
   }
 }
 
-/*
-data "template_file" "f5_bigip_onboard" {
-  template = file("${path.module}/templates/f5_onboard.tpl")
-
-  vars = {
-    DO_URL          = var.DO_URL
-    AS3_URL		      = var.AS3_URL
-    TS_URL          = var.TS_URL
-    CFE_URL         = var.CFE_URL
-    FAST_URL        = var.FAST_URL
-    ADMIN_PASSWD    = var.f5_password
-    ADMIN_USER      = var.f5_username
-    libs_dir		    = var.libs_dir
-    onboard_log		  = var.onboard_log
-  }
-}
-*/
 # Create F5 BIGIP1
 resource "azurerm_virtual_machine" "f5-bigip1" {
   name                         = "${var.prefix}-vm"

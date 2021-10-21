@@ -7,7 +7,7 @@ locals{
 # Create a resource group for Demo
 module "apps" {
   source    = "./modules"
-  gtm_ip    = local.json_data.mgmt_ip
+  gtm_ip    = local.gslb_data.mgmt_ip
   location  = "eastus"
   rg_prefix = "Primary-App"
   username	= var.username

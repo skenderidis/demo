@@ -217,7 +217,7 @@ module "azure_f5" {
 resource "null_resource" "add-server" {
   triggers = {
     vm_name   = azurerm_linux_virtual_machine.web-linux-vm.name
-    vm_ip     = azurerm_public_ip.web-linux-vm-ip.ip_address
+    vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip
@@ -227,7 +227,7 @@ resource "null_resource" "add-server" {
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
         --header 'Content-Type: application/json' \
         --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/Azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
+        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
       EOT
   }
   provisioner "local-exec" {
@@ -245,7 +245,7 @@ resource "null_resource" "add-server" {
 resource "null_resource" "add-pool-member-01" {
   triggers = {
     vm_name   = azurerm_linux_virtual_machine.web-linux-vm.name
-    vm_ip     = azurerm_public_ip.web-linux-vm-ip.ip_address
+    vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip

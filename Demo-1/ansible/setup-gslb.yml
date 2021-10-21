@@ -45,7 +45,6 @@
       status_code: [200,202,409]
     register: gtm_listener_add_POST_return
 
-
   - name: Create GSLB DC
     bigip_gtm_datacenter:
       name: "azure"

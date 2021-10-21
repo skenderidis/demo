@@ -12,7 +12,7 @@ resource "random_string" "random-rg-name" {
 
 # Create a resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.rg_name}-${random_string.random-rg-name.result}"
+  name     = ""${var.rg_prefix}-${var.rg_name}-${random_string.random-rg-name.result}"
   location = var.location
   tags = {
     owner = var.tag

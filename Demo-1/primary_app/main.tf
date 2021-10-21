@@ -9,7 +9,7 @@ module "apps" {
   source    = "./modules"
   gtm_ip    = local.gslb_data.mgmt_ip
   location  = "eastus"
-  rg_name = "Primary-App"
+  rg_prefix = "Primary-App"
   username	= var.username
   password	= var.password
   pool      = "app_america_pool"

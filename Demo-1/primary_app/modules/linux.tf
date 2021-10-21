@@ -139,7 +139,7 @@ resource "null_resource" "add-pool-member-01" {
 
   provisioner "local-exec" {
       command = <<EOT
-        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/' \
+        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members' \
         --header 'Content-Type: application/json' \
         --user ${self.triggers.username}:${self.triggers.password} \
         --data-raw '{"name": "${self.triggers.vm_name}:${self.triggers.vm_ip}"}'
@@ -148,7 +148,7 @@ resource "null_resource" "add-pool-member-01" {
   provisioner "local-exec" {
     when    = destroy
     command = <<EOT
-        curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/${self.triggers.vm_name}:${self.triggers.vm_ip}' \
+        curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members/${self.triggers.vm_name}:${self.triggers.vm_ip}' \
         --header 'Content-Type: application/json' \
         --user ${self.triggers.username}:${self.triggers.password}
       EOT

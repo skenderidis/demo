@@ -235,6 +235,7 @@ resource "null_resource" "add-server" {
     command = <<EOT
         curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/server/${self.triggers.vm_name}' \
         --header 'Content-Type: application/json' \
+        --connect-timeout 10 \
         --user ${self.triggers.username}:${self.triggers.password}
       EOT
     on_failure = continue
@@ -266,6 +267,7 @@ resource "null_resource" "add-pool-member-01" {
     command = <<EOT
         curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members/${self.triggers.vm_name}:${self.triggers.vm_ip}' \
         --header 'Content-Type: application/json' \
+        --connect-timeout 10 \
         --user ${self.triggers.username}:${self.triggers.password}
       EOT
     on_failure = continue

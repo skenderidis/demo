@@ -13,10 +13,24 @@
       validate_certs: no
       server_port: 443
   tasks:
-  - name: Wait for BIGIP to be on a ready state
+  - name: Wait for BIGIP LTM to be on a ready state
     bigip_wait:
       provider: "{{ provider }}"
     delegate_to: localhost
+
+  - name: Wait for BIGIP GTM to be on a ready state
+    uri:
+      url: https://{{mgmt_ip}}/mgmt/tm/gtm/listener/
+      user: "{{f5_user}}"
+      password: "{{f5_pass}}"
+      method: GET
+      force_basic_auth: yes
+      validate_certs: no
+    register: gtm_listener_check
+    changed_when: gtm_listener_check.status == 200  
+    retries: 120
+    until: gtm_listener_check.json.result.status in ['ERROR', 'FAILED', 'OK'] or gtm_listener_check.status == 200
+    delay: 3
 
   - name: Create a DNS Listener
     uri:
@@ -30,6 +44,7 @@
       validate_certs: no
       status_code: [200,202,409]
     register: gtm_listener_add_POST_return
+
 
   - name: Create GSLB DC
     bigip_gtm_datacenter:

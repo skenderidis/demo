@@ -15,7 +15,6 @@
   tasks:
   - name: Wait for BIGIP to be on a ready state
     bigip_wait:
-      name: "azure"
       provider: "{{ provider }}"
     delegate_to: localhost
 

@@ -13,6 +13,12 @@
       validate_certs: no
       server_port: 443
   tasks:
+  - name: Wait for BIGIP to be on a ready state
+    bigip_wait:
+      name: "azure"
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
   - name: Create a DNS Listener
     uri:
       url: https://{{mgmt_ip}}/mgmt/tm/gtm/listener/

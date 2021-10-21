@@ -4,7 +4,7 @@
 
 
 # Generate randon name for virtual machine
-resource "random_string" "linux" {
+resource "random_string" "linux-02" {
   length  = 4
   special = false
   lower   = true
@@ -14,9 +14,9 @@ resource "random_string" "linux" {
 
 
 # Get a Static Public IP
-resource "azurerm_public_ip" "web-linux-vm-ip" {
+resource "azurerm_public_ip" "web-linux-vm-ip-02" {
 
-  name                = "vm-pip-${random_string.linux.result}"
+  name                = "vm-pip-${random_string.linux-02.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
@@ -27,39 +27,39 @@ resource "azurerm_public_ip" "web-linux-vm-ip" {
 }
 
 # Create Network Card for web VM
-resource "azurerm_network_interface" "web-vm-nic" {
-  depends_on=[azurerm_public_ip.web-linux-vm-ip]
+resource "azurerm_network_interface" "web-vm-nic-02" {
+  depends_on=[azurerm_public_ip.web-linux-vm-ip-02]
 
-  name                = "vm-nic-${random_string.linux.result}"
+  name                = "vm-nic-${random_string.linux-02.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   
   ip_configuration {
-    name                          = "internal-${random_string.linux.result}"
+    name                          = "internal-${random_string.linux-02.result}"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.web-linux-vm-ip.id
+    public_ip_address_id          = azurerm_public_ip.web-linux-vm-ip-02.id
   }
   tags = {
     owner = var.tag
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "nsg_vnic" {
+resource "azurerm_network_interface_security_group_association" "nsg_vnic-02" {
 
-  network_interface_id      = azurerm_network_interface.web-vm-nic.id
+  network_interface_id      = azurerm_network_interface.web-vm-nic-02.id
   network_security_group_id = azurerm_network_security_group.nsg.id
   
 }
 
 # Create Linux VM with web server
-resource "azurerm_linux_virtual_machine" "web-linux-vm" {
-  depends_on=[azurerm_network_interface.web-vm-nic]
+resource "azurerm_linux_virtual_machine" "web-linux-vm-02" {
+  depends_on=[azurerm_network_interface.web-vm-nic-02]
 
-  name                  = "linux-vm-${random_string.linux.result}"
+  name                  = "linux-vm-${random_string.linux-02.result}"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.web-vm-nic.id]
+  network_interface_ids = [azurerm_network_interface.web-vm-nic-02.id]
   size                  = var.vm-size
 
   source_image_reference {
@@ -70,12 +70,12 @@ resource "azurerm_linux_virtual_machine" "web-linux-vm" {
   }
 
   os_disk {
-    name                 = "vm-os-disk-${random_string.linux.result}"
+    name                 = "vm-os-disk-${random_string.linux-02.result}"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
-  computer_name  = "vm-${random_string.linux.result}"
+  computer_name  = "vm-${random_string.linux-02.result}"
   admin_username = var.username
   admin_password = var.password 
   custom_data    = base64encode(data.template_file.linux-vm-cloud-init.rendered)
@@ -93,12 +93,12 @@ resource "azurerm_linux_virtual_machine" "web-linux-vm" {
 }
 
 # Data template Bash bootstrapping file
-data "template_file" "linux-vm-cloud-init" {
+data "template_file" "linux-vm-cloud-init-02" {
   template = file("./modules/docker-init.sh")
 }
 
 
-resource "null_resource" "add-server" {
+resource "null_resource" "add-member-02" {
   provisioner "local-exec" {
       command = <<EOT
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
@@ -107,34 +107,4 @@ resource "null_resource" "add-server" {
         --data-raw '{"name": "${azurerm_linux_virtual_machine.web-linux-vm.name}","datacenter": "/Common/Azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","deviceName": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","translation": "none"}],"virtualServers": [{"name": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","destination": "${azurerm_public_ip.web-linux-vm-ip.ip_address}:80","enabled": true}]}'
       EOT
   }
-  provisioner "local-exec" {
-    when    = destroy
-    command = <<EOT
-        curl --location -k --request DELETE 'https://${var.gtm_ip}/mgmt/tm/gtm/server/${azurerm_linux_virtual_machine.web-linux-vm.name}' \
-        --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password}
-      EOT
-    on_failure = continue
-}
-
-}
-
-resource "null_resource" "add-pool-member-01" {
-  provisioner "local-exec" {
-      command = <<EOT
-        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${var.pool}/' \
-        --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${azurerm_linux_virtual_machine.web-linux-vm.name}:${azurerm_public_ip.web-linux-vm-ip.ip_address}"}'
-      EOT
-  }
-  provisioner "local-exec" {
-    when    = destroy
-    command = <<EOT
-        curl --location -k --request DELETE 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${var.pool}/${azurerm_linux_virtual_machine.web-linux-vm.name}:${azurerm_public_ip.web-linux-vm-ip.ip_address}' \
-        --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password}
-      EOT
-    on_failure = continue
-}  
 }

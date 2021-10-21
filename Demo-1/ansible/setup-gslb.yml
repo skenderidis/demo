@@ -28,13 +28,13 @@
 
   - name: Create GSLB DC
     bigip_gtm_datacenter:
-      name: "Azure"
+      name: "azure"
       provider: "{{ provider }}"
     delegate_to: localhost
 
   - name: Create Europe Region
     bigip_gtm_topology_region:
-      name: Europe
+      name: europe
       region_members:
         - continent: AF
         - continent: EU
@@ -43,7 +43,7 @@
 
   - name: Create America Region
     bigip_gtm_topology_region:
-      name: USA
+      name: america
       region_members:
         - continent: NA
         - continent: SA
@@ -54,7 +54,7 @@
 
   - name: Create Asia Region
     bigip_gtm_topology_region:
-      name: Asia
+      name: asia
       region_members:
         - continent: OC
         - continent: AS
@@ -64,7 +64,7 @@
 
   - name: Create a Europe GTM pool
     bigip_gtm_pool:
-      name: Europe_pool
+      name: europe_pool
       preferred_lb_method: topology
       alternate_lb_method: round-robin
       ttl: 10
@@ -74,7 +74,7 @@
 
   - name: Create a America GTM pool
     bigip_gtm_pool:
-      name: America_pool
+      name: america_pool
       preferred_lb_method: topology
       alternate_lb_method: round-robin
       ttl: 10
@@ -84,7 +84,7 @@
 
   - name: Create a Asia GTM pool
     bigip_gtm_pool:
-      name: Asia_pool
+      name: asia_pool
       preferred_lb_method: topology
       alternate_lb_method: round-robin
       ttl: 10
@@ -95,7 +95,7 @@
 
   - name: Create a Europe GTM App pool
     bigip_gtm_pool:
-      name: App_europe_pool
+      name: app_europe_pool
       preferred_lb_method: round-robin
       alternate_lb_method: round-robin
       ttl: 10
@@ -105,7 +105,7 @@
 
   - name: Create a America GTM App pool
     bigip_gtm_pool:
-      name: App_america_pool
+      name: app_america_pool
       preferred_lb_method: round-robin
       alternate_lb_method: round-robin
       ttl: 10
@@ -115,7 +115,7 @@
 
   - name: Create a Asia GTM App pool
     bigip_gtm_pool:
-      name: App_asia_pool
+      name: app_asia_pool
       preferred_lb_method: round-robin
       alternate_lb_method: round-robin
       ttl: 10

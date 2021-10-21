@@ -216,7 +216,9 @@ resource "azurerm_virtual_machine_extension" "startup-script" {
   type                 = "CustomScript"
   type_handler_version = "2.0"
 
-
+  provisioner "local-exec" {
+    command = "sleep 200"
+  }
   protected_settings = <<PROT
   {
     "script": "${base64encode(data.template_file.f5_bigip_onboard.rendered)}"

@@ -98,21 +98,28 @@ data "template_file" "linux-vm-cloud-init" {
 }
 
 
-resource "null_resource" "add-server" {
+resource "null_resource" "add-server-01" {
+  triggers = {
+    vm_name   = azurerm_linux_virtual_machine.web-linux-vm.name
+    vm_ip     = azurerm_public_ip.web-linux-vm-ip.ip_address
+    username  = var.username
+    password  = var.password
+    gtm_ip    = var.gtm_ip
+  }  
   provisioner "local-exec" {
       command = <<EOT
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
         --header 'Content-Type: application/json' \
         --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${azurerm_linux_virtual_machine.web-linux-vm.name}","datacenter": "/Common/Azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","deviceName": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","translation": "none"}],"virtualServers": [{"name": "${azurerm_public_ip.web-linux-vm-ip.ip_address}","destination": "${azurerm_public_ip.web-linux-vm-ip.ip_address}:80","enabled": true}]}'
+        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/Azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
       EOT
   }
   provisioner "local-exec" {
     when    = destroy
     command = <<EOT
-        curl --location -k --request DELETE 'https://${var.gtm_ip}/mgmt/tm/gtm/server/${azurerm_linux_virtual_machine.web-linux-vm.name}' \
+        curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/server/${self.triggers.vm_name}' \
         --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password}
+        --user ${self.triggers.username}:${self.triggers.password}
       EOT
     on_failure = continue
 }
@@ -120,20 +127,30 @@ resource "null_resource" "add-server" {
 }
 
 resource "null_resource" "add-pool-member-01" {
+  triggers = {
+    vm_name   = azurerm_linux_virtual_machine.web-linux-vm.name
+    vm_ip     = azurerm_public_ip.web-linux-vm-ip.ip_address
+    username  = var.username
+    password  = var.password
+    gtm_ip    = var.gtm_ip
+    pool      = var.pool
+  } 
+
+
   provisioner "local-exec" {
       command = <<EOT
-        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${var.pool}/' \
+        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/' \
         --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${azurerm_linux_virtual_machine.web-linux-vm.name}:${azurerm_public_ip.web-linux-vm-ip.ip_address}"}'
+        --user ${self.triggers.username}:${self.triggers.password} \
+        --data-raw '{"name": "${self.triggers.vm_name}:${self.triggers.vm_ip}"}'
       EOT
   }
   provisioner "local-exec" {
     when    = destroy
     command = <<EOT
-        curl --location -k --request DELETE 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${var.pool}/${azurerm_linux_virtual_machine.web-linux-vm.name}:${azurerm_public_ip.web-linux-vm-ip.ip_address}' \
+        curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/${self.triggers.vm_name}:${self.triggers.vm_ip}' \
         --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password}
+        --user ${self.triggers.username}:${self.triggers.password}
       EOT
     on_failure = continue
 }  

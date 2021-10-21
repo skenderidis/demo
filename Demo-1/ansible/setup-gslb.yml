@@ -28,7 +28,7 @@
       force_basic_auth: yes
       body_format: json
       validate_certs: no
-      status_code: [200,202]
+      status_code: [200,202,409]
     register: gtm_listener_add_POST_return
 
   - name: Create GSLB DC
@@ -131,13 +131,13 @@
   - name: Create www.f5demo.cloud wideIP
     bigip_gtm_wide_ip:
       pool_lb_method: topology
-      last_resort_pool: America_pool
+      last_resort_pool: america_pool
       name: www.f5demo.cloud
       type: a
       pools:
-        - name: America_pool
-        - name: Europe_pool
-        - name: Asia_pool
+        - name: america_pool
+        - name: europe_pool
+        - name: asia_pool
       provider: "{{ provider }}"
     delegate_to: localhost
 
@@ -145,22 +145,22 @@
   - name: Create eu.f5demo.cloud wideIP
     bigip_gtm_wide_ip:
       pool_lb_method: topology
-      last_resort_pool: App_europe_pool
+      last_resort_pool: app_europe_pool
       name: eu.f5demo.cloud
       type: a
       pools:
-        - name: App_europe_pool
+        - name: app_europe_pool
       provider: "{{ provider }}"
     delegate_to: localhost
 
   - name: Create us.f5demo.cloud wideIP
     bigip_gtm_wide_ip:
       pool_lb_method: topology
-      last_resort_pool: App_america_pool
+      last_resort_pool: app_america_pool
       name: us.f5demo.cloud
       type: a
       pools:
-        - name: App_america_pool
+        - name: app_america_pool
       provider: "{{ provider }}"
     delegate_to: localhost
 
@@ -171,6 +171,6 @@
       name: as.f5demo.cloud
       type: a
       pools:
-        - name: App_asia_pool
+        - name: app_asia_pool
       provider: "{{ provider }}"
     delegate_to: localhost

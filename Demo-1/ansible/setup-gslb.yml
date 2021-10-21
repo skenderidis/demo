@@ -167,7 +167,7 @@
   - name: Create as.f5demo.cloud wideIP
     bigip_gtm_wide_ip:
       pool_lb_method: topology
-      last_resort_pool: App_asia_pool
+      last_resort_pool: app_asia_pool
       name: as.f5demo.cloud
       type: a
       pools:

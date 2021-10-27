@@ -30,7 +30,7 @@ resource "azurerm_public_ip" "web-linux-vm-ip-02" {
 resource "azurerm_network_interface" "web-vm-nic-02" {
   depends_on=[azurerm_public_ip.web-linux-vm-ip-02]
 
-  name                = "vm-nic-${random_string.linux-02.result}"
+  name                = "${var.location}-${var.rg_prefix}-vm-nic-${random_string.linux-02.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   

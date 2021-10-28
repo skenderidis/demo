@@ -19,7 +19,8 @@ exec 2>&1
 
 mkdir -p /config/cloud
   
-curl -o /config/cloud/do_w_admin.json -s --fail --retry 60 -m 10 -L https://raw.githubusercontent.com/f5devcentral/terraform-azure-bigip-module/master/config/onboard_do.json
+curl -o /config/cloud/do.json -s --fail --retry 60 -m 10 -L https://raw.githubusercontent.com/skenderidis/demo/master/Demo-1/onboard_do.json
+curl -o /config/cloud/as3.json -s --fail --retry 60 -m 10 -L https://raw.githubusercontent.com/skenderidis/demo/master/Demo-1/as3_config.json
 
 
 ### write_files:
@@ -45,7 +46,7 @@ pre_onboard_enabled:
   - name: provision_rest
     type: inline
     commands:
-      - /usr/bin/setdb provision.extramb 500
+      - /usr/bin/setdb provision.extramb 1024
       - /usr/bin/setdb restjavad.useextramb true
       - /usr/bin/setdb setup.run false
 extension_packages:
@@ -55,26 +56,25 @@ extension_packages:
       extensionUrl: ${DO_URL}
     - extensionType: as3
       extensionVersion: ${AS3_VER}
-      extensionUrl: ${AS3_URL}
+      extensionUrl: ${DO_URL}
     - extensionType: ts
       extensionVersion: ${TS_VER}
       extensionUrl: ${TS_URL}
-    - extensionType: cf
-      extensionVersion: ${CFE_VER}
-      extensionUrl: ${CFE_URL}
-    - extensionType: fast
-      extensionVersion: ${FAST_VER}
-      extensionUrl: ${FAST_URL}
 extension_services:
   service_operations:
     - extensionType: do
       type: url
-      value: file:///config/cloud/do_w_admin.json
+      value: file:///config/cloud/do.json
+    - extensionType: as3
+      type: url
+      value: file:///config/cloud/as3.json      
 post_onboard_enabled: []
 EOF
-# # Download
-#PACKAGE_URL='https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.1.0/dist/f5-bigip-runtime-init-1.1.0-1.gz.run'
-#PACKAGE_URL='https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.2.0/dist/f5-bigip-runtime-init-1.2.0-1.gz.run'
+
+#
+#      extensionUrl: ${AS3_URL}
+#
+
 for i in {1..30}; do
     curl -fv --retry 1 --connect-timeout 5 -L ${INIT_URL} -o "/var/config/rest/downloads/f5-bigip-runtime-init-1.1.0-1.gz.run" && break || sleep 10
 done

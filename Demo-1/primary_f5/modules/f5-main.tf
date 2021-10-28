@@ -181,7 +181,7 @@ module "azure_f5" {
   source            = "./modules/f5 bigip"
   azure_region      = var.location
   azure_rg_name     = azurerm_resource_group.f5_rg.name
-  prefix            = var.prefix_bigip
+  prefix            = "${var.location}-${var.prefix_bigip}"
   tag 		          = var.tag
   mgmt_subnet_id 	  = azurerm_subnet.mgmt_subnet.id
   mgmt_nsg_id	  	  = azurerm_network_security_group.f5_nsg_mgmt.id
@@ -208,7 +208,9 @@ module "azure_f5" {
   CFE_URL			      = var.cfe_url
   FAST_URL			    = var.fast_url
   f5_password       = var.password
-  f5_username       = var.username  
+  f5_username       = var.username
+  sd_fqdn           = var.sd_fqdn
+  suffix            = random_string.suffix.result
 }
 
 
@@ -216,7 +218,7 @@ module "azure_f5" {
 
 resource "null_resource" "add-server" {
   triggers = {
-    vm_name   = "${var.location}-${azurerm_resource_group.f5_rg.name}-${module.azure_f5.name}"
+    vm_name   = module.azure_f5.name
     vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password
@@ -243,8 +245,6 @@ resource "null_resource" "add-server" {
 }
 
 }
-
-
 
 resource "null_resource" "add-pool-member-01" {
   triggers = {

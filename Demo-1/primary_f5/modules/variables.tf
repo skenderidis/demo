@@ -15,10 +15,11 @@ variable tag 					{default = "CIS - Kubernetes Demo"}
 variable password		  		{default = "Kostas123"}
 variable username		  		{default = "azureuser"}
 variable location				{default = "eastus"}
-variable rg_prefix				{default = "ks"}
+variable rg_prefix				{default = "bigip"}
 
-variable gtm_ip  			{default = ""}
-variable pool  			  {default = ""}
+variable gtm_ip  			    {default = ""}
+variable pool  			        {default = ""}
+variable sd_fqdn                {default = ""}   
 
 ###########   F5  Variables   ############
 variable f5_rg_name				{default = "bigip-rg" }
@@ -53,11 +54,17 @@ variable f5_image_name 			{default = "f5-bigip-virtual-edition-25m-best-hourly" 
 variable f5_product_name 		{default = "f5-big-ip-best"}
 variable f5_instance_type 		{default = "Standard_DS4_v2"}
 
+#variable do_url 				{default = "https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.21.0/f5-declarative-onboarding-1.21.0-3.noarch.rpm"}
+#variable as3_url 				{default = "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.28.0/f5-appsvcs-3.28.0-3.noarch.rpm"}
+#variable ts_url 				{default = "https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.20.0/f5-telemetry-1.20.0-3.noarch.rpm" }
+#variable cfe_url 				{default = "https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.8.0/f5-cloud-failover-1.8.0-0.noarch.rpm" }
+#variable fast_url 				{default = "https://github.com/F5Networks/f5-appsvcs-templates/releases/download/v1.9.0/f5-appsvcs-templates-1.9.0-1.noarch.rpm" }
+#variable init_url               {default = "https://github.com/F5Networks/f5-bigip-runtime-init/releases/download/1.3.2/f5-bigip-runtime-init-1.3.2-1.gz.run"}
+
+
 variable do_url 				{default = "https://github.com/F5Networks/f5-declarative-onboarding/releases/download/v1.21.0/f5-declarative-onboarding-1.21.0-3.noarch.rpm"}
 variable as3_url 				{default = "https://github.com/F5Networks/f5-appsvcs-extension/releases/download/v3.28.0/f5-appsvcs-3.28.0-3.noarch.rpm"}
 variable ts_url 				{default = "https://github.com/F5Networks/f5-telemetry-streaming/releases/download/v1.20.0/f5-telemetry-1.20.0-3.noarch.rpm" }
 variable cfe_url 				{default = "https://github.com/F5Networks/f5-cloud-failover-extension/releases/download/v1.8.0/f5-cloud-failover-1.8.0-0.noarch.rpm" }
 variable fast_url 				{default = "https://github.com/F5Networks/f5-appsvcs-templates/releases/download/v1.9.0/f5-appsvcs-templates-1.9.0-1.noarch.rpm" }
-
-variable init_url               {default= "https://cdn.f5.com/product/cloudsolutions/f5-bigip-runtime-init/v1.2.1/dist/f5-bigip-runtime-init-1.2.1-1.gz.run"}
-
+variable init_url               {default = "https://github.com/F5Networks/f5-bigip-runtime-init/releases/download/1.3.2/f5-bigip-runtime-init-1.3.2-1.gz.run"}

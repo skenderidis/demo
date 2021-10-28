@@ -132,12 +132,20 @@ data "template_file" "f5_bigip_onboard" {
     FAST_VER                    = split("/", var.FAST_URL)[7]
     bigip_username              = var.f5_username
     bigip_password              = var.f5_password
+    vserver_ip                  = var.add_ip_ext_1
+    service_discovery_fqdn      = var.sd_fqdn
+    hostname                    = "${var.prefix}-vm-${var.suffix}"
+    self-ip-ext                 = var.self_ip_ext
+    gateway                     = cidrhost(format("%s/24", var.self_ip_ext), 1)
+    self-ip-int                 = var.self_ip_int
+
+
   }
 }
 
 # Create F5 BIGIP1
 resource "azurerm_virtual_machine" "f5-bigip1" {
-  name                         = "${var.prefix}-vm"
+  name                         = "${var.prefix}-vm-${var.suffix}"
   location                     = var.azure_region
   resource_group_name          = var.azure_rg_name
   primary_network_interface_id = azurerm_network_interface.mgmt_nic.id

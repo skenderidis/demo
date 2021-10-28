@@ -2,8 +2,7 @@
     "class": "ADC",
     "schemaVersion": "3.4.0",
     "id": "demo",
-    "label": "Virtual Server with FQDN poo",
-    "remark": "This declaration will deploy a VServer with logging and FQDN SD pool members",
+    "label": "Virtual Server with FQDN pool",
     "Scale_out_demo": {
         "class": "Tenant",
         "demo_app": {

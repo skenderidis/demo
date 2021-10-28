@@ -132,7 +132,7 @@ data "template_file" "f5_bigip_onboard" {
     FAST_VER                    = split("/", var.FAST_URL)[7]
     bigip_username              = var.f5_username
     bigip_password              = var.f5_password
-    vserver_ip                  = var.add_ip_ext_1
+    vip_address                 = var.add_ip_ext_1
     service_discovery_fqdn      = var.sd_fqdn
     hostname                    = "${var.prefix}-vm-${var.suffix}"
     self-ip-ext                 = var.self_ip_ext
@@ -208,7 +208,7 @@ resource "azurerm_virtual_machine_extension" "startup-script" {
   type_handler_version = "2.0"
 
   provisioner "local-exec" {
-    command = "sleep 200"
+    command = "sleep 220"
   }
   protected_settings = <<PROT
   {

@@ -248,7 +248,7 @@ resource "null_resource" "add-server" {
 
 resource "null_resource" "add-pool-member-01" {
   triggers = {
-    vm_name   = "${azurerm_resource_group.f5_rg.name}-${module.azure_f5.name}"
+    vm_name   = module.azure_f5.name
     vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password

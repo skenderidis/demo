@@ -11,7 +11,7 @@
             "app1.f5demo.cloud": {
                 "class": "Service_HTTP",
                 "virtualAddresses": [
-                    "{{{vip_address}}"
+                    "{{{vip_address}}}"
                 ],
                 
                 "pool": "fqdn_pool",
@@ -32,7 +32,7 @@
                         "queryInterval": 10,
                         "addressDiscovery": "fqdn",
                         "autoPopulate": true,
-                        "hostname": "{{{service_discovery_fqdn}}"
+                        "hostname": "{{{service_discovery_fqdn}}}"
                     }
                 ]
             }

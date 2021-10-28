@@ -40,6 +40,26 @@ cat << 'EOF' >> /config/cloud/runtime-init-conf.yaml
     value: ${bigip_password}
 EOF
 
+cat << 'EOF' >> /config/cloud/runtime-init-conf.yaml
+  - name: hostname
+    type: static
+    value: ${hostname}
+  - name: self-ip-ext
+    type: static
+    value: ${self-ip-ext}
+  - name: gateway
+    type: static
+    value: ${gateway}
+  - name: self-ip-int 
+    type: static
+    value: ${self-ip-int}
+  - name: service_discovery_fqdn
+    type: static
+    value: ${service_discovery_fqdn}
+  - name: vip_address
+    type: static
+    value: ${vip_address}
+EOF
 
 cat << 'EOF' >> /config/cloud/runtime-init-conf.yaml
 pre_onboard_enabled:
@@ -56,7 +76,7 @@ extension_packages:
       extensionUrl: ${DO_URL}
     - extensionType: as3
       extensionVersion: ${AS3_VER}
-      extensionUrl: ${DO_URL}
+      extensionUrl: ${AS3_URL}
     - extensionType: ts
       extensionVersion: ${TS_VER}
       extensionUrl: ${TS_URL}

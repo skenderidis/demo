@@ -223,6 +223,7 @@ resource "null_resource" "add-server" {
     gtm_ip    = var.gtm_ip
   }  
   provisioner "local-exec" {
+    
       command = <<EOT
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
         --header 'Content-Type: application/json' \
@@ -244,7 +245,7 @@ resource "null_resource" "add-server" {
 }
 
 
-/*
+
 resource "null_resource" "add-pool-member-01" {
   triggers = {
     vm_name   = "${azurerm_resource_group.f5_rg.name}-${module.azure_f5.name}"
@@ -255,7 +256,7 @@ resource "null_resource" "add-pool-member-01" {
     pool      = var.pool
   } 
 
-
+  depends_on = [null_resource.add-server]
   provisioner "local-exec" {
       command = <<EOT
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members' \
@@ -276,4 +277,3 @@ resource "null_resource" "add-pool-member-01" {
 }  
 }
 
-*/

@@ -93,6 +93,7 @@
       provider: "{{ provider }}"
     delegate_to: localhost
 
+    
 
   - name: Create a Europe GTM pool
     bigip_gtm_pool:
@@ -124,7 +125,6 @@
       provider: "{{ provider }}"
     delegate_to: localhost
 
-
   - name: Create a Europe GTM App pool
     bigip_gtm_pool:
       name: app_europe_pool
@@ -154,6 +154,34 @@
       type: a
       provider: "{{ provider }}"
     delegate_to: localhost
+
+  - name: Create America Record
+    bigip_gtm_topology_record:
+      source:
+        region: america
+      destination:
+        pool: america_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create Europe Record
+    bigip_gtm_topology_record:
+      source:
+        region: europe
+      destination:
+        pool: europe_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create Asia Record
+    bigip_gtm_topology_record:
+      source:
+        region: asia
+      destination:
+        pool: asia_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
 
   - name: Create www.f5demo.cloud wideIP
     bigip_gtm_wide_ip:

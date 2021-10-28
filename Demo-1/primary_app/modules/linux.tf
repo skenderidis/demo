@@ -137,6 +137,7 @@ resource "null_resource" "add-pool-member-01" {
     pool      = var.pool
   } 
 
+  depends_on = [null_resource.add-server-01]
 
   provisioner "local-exec" {
       command = <<EOT

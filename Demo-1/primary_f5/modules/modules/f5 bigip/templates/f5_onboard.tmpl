@@ -19,8 +19,8 @@ exec 2>&1
 
 mkdir -p /config/cloud
   
-curl -o /config/cloud/do.json -s --fail --retry 60 -m 10 -L https://raw.githubusercontent.com/skenderidis/demo/master/Demo-1/onboard_do.json
-curl -o /config/cloud/as3.json -s --fail --retry 60 -m 10 -L https://raw.githubusercontent.com/skenderidis/demo/master/Demo-1/as3_config.json
+curl -o /config/cloud/do.json -s --fail --retry 60 -m 10 -L https://raw.githubusercontent.com/skenderidis/demo/main/Demo-1/do_onboard.json
+curl -o /config/cloud/as3.json -s --fail --retry 60 -m 10 -L https://raw.githubusercontent.com/skenderidis/demo/main/Demo-1/as3_config.json
 
 
 ### write_files:

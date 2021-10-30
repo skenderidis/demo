@@ -1,0 +1,29 @@
+---
+- name: Configuring F5 GSLB
+  hosts: localhost
+  connection: local
+  vars_files:
+    - /tmp/observability_info.json
+  gather_facts: false
+  vars:
+    provider:
+      password: "{{grafana_pass}}"
+      server: "{{mgmt_ip}}"
+      user: "{{grafana_user}}"
+      validate_certs: no
+      server_port: 443
+  tasks:
+ 
+  - name: Create a DNS Listener
+    uri:
+      url: https://{{mgmt_ip}}/mgmt/tm/gtm/listener/
+      user: "{{grafana_user}}"
+      password: "{{grafana_pass}}"
+      method: POST
+      body: "{\"name\": \"listener\",\"address\": \"{{dns_private_ip}}\",\"port\": 53}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200,202,409]
+    register: gtm_listener_add_POST_return
+    

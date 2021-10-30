@@ -17,12 +17,12 @@ variable allowedIPs				{default = ["0.0.0.0/0"]}
 variable password		  		{default = "Kostas580"}
 variable username		  		{default = "azureuser"}
 
-variable rg_prefix  			{default = "Observer"}
+variable rg_prefix  			{default = "Demo"}
 
 
 ###########   App  Variables   ############
 
-variable rg_name  			{default = "app-rg"}
+variable rg_name  			{default = "observe-rg"}
 variable vnet_name  		{default = "apps_vnet"}
 variable vnet_cidr  		{default = "10.10.30.0/24"}
 variable subnet_name  		{default = "default"}

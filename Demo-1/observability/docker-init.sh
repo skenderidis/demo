@@ -49,9 +49,6 @@ scrape_configs:
     dns_sd_configs:
     - names:
       - bigip.f5demo.cloud
-      - us.f5demo.cloud
-      - eu.f5demo.cloud
-      - as.f5demo.cloud
       type: 'A'
       port: 443
 

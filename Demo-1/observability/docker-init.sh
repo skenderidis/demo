@@ -44,13 +44,14 @@ scrape_configs:
     tls_config:
       insecure_skip_verify: true
     basic_auth:
-      username: 'admin'
-      password: 'Kostas123'
-#    static_configs:
-#      - targets: ['192.168.2.4', '192.168.2.5']
+      username: '${username}'
+      password: '${password}'
     dns_sd_configs:
     - names:
       - bigip.f5demo.cloud
+      - us.f5demo.cloud
+      - eu.f5demo.cloud
+      - as.f5demo.cloud
       type: 'A'
       port: 443
 

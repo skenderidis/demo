@@ -61,6 +61,18 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = azurerm_resource_group.rg.name 
 
   security_rule {
+    name                       = "allow-ssh"
+    description                = "allow-ssh"
+    priority                   = 100
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "22"
+    source_address_prefixes	   = var.allowedIPs
+    destination_address_prefix = "*"
+  }
+   security_rule {
     name                       = "allow-kibana"
     description                = "allow-kibana"
     priority                   = 110
@@ -71,7 +83,7 @@ resource "azurerm_network_security_group" "nsg" {
     destination_port_range     = "5601"
     source_address_prefixes	   = var.allowedIPs
     destination_address_prefix = "*"
-  }
+  } 
   security_rule {
     name                       = "allow-grafana"
     description                = "allow-grafana"
@@ -100,7 +112,7 @@ resource "azurerm_network_security_group" "nsg" {
     security_rule {
     name                       = "allow-prometheus"
     description                = "allow-prometheus"
-    priority                   = 112
+    priority                   = 113
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"

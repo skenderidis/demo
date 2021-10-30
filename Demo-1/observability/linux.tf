@@ -95,5 +95,9 @@ resource "azurerm_linux_virtual_machine" "web-linux-vm" {
 # Data template Bash bootstrapping file
 data "template_file" "linux-vm-cloud-init" {
   template = file("./docker-init.sh")
+  vars = {
+  username = var.username
+  password = var.password
+}
 }
 

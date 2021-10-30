@@ -9,17 +9,15 @@ variable tenant_id				{}
 
 #########   Common Variables   ##########
 
-variable tag 					{default = "Kostas Automation Demo"}
-variable location				{default = "eastus"}
+variable tag 					    {default = "Kostas Automation Demo"}
+variable location				  {default = "eastus"}
 variable zone_name				{default = "f5demo.cloud"}
-variable rg_zone 				{default = "f5demo_dns"}
+variable rg_zone 				  {default = "f5demo_dns"}
 variable allowedIPs				{default = ["0.0.0.0/0"]}
 variable password		  		{default = "Kostas580"}
 variable username		  		{default = "azureuser"}
 
-variable gtm_ip  			{default = ""}
-variable pool  			  {default = ""}
-variable rg_prefix  			{default = ""}
+variable rg_prefix  			{default = "Observer"}
 
 
 ###########   App  Variables   ############

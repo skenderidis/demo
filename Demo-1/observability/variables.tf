@@ -1,3 +1,11 @@
+#########   Azure Variables   ##########
+
+variable subscription_id  		{}
+variable client_id				{}
+variable client_secret  		{}
+variable tenant_id				{}
+
+
 
 #########   Common Variables   ##########
 
@@ -11,11 +19,12 @@ variable username		  		{default = "azureuser"}
 
 variable gtm_ip  			{default = ""}
 variable pool  			  {default = ""}
+variable rg_prefix  			{default = ""}
 
 
 ###########   App  Variables   ############
 
-variable rg_name  			{default = "test-rg"}
+variable rg_name  			{default = "app-rg"}
 variable vnet_name  		{default = "apps_vnet"}
 variable vnet_cidr  		{default = "10.10.30.0/24"}
 variable subnet_name  		{default = "default"}
@@ -23,10 +32,8 @@ variable subnet_cidr  		{default = "10.10.30.0/24"}
 
 
 variable ip_web01  			{default = "10.10.30.15"}
-variable ip_web02  			{default = "10.10.30.16"}
-variable prefix_web01		{default = "web01"}
-variable prefix_web02		{default = "web02"}
-variable vm-size			{default = "Standard_DS1_v2"}
+variable prefix_web01		{default = "observ01"}
+variable vm-size			{default = "Standard_DS4_v2"}
 
 variable "web-linux-license-type" {
   type        = string

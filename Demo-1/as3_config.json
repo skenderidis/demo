@@ -13,7 +13,7 @@
                     "{{{vip_address}}}"
                 ],
                 
-                "pool": "fqdn_pool",
+                "pool": "application_pool",
                 "virtualPort": 80,
                 "persistenceMethods": [
                     "cookie"
@@ -23,7 +23,7 @@
                 "profileTCP": "normal",
                 "snat": "auto"
             },
-            "fqdn_pool": {
+            "application_pool": {
                 "class": "Pool",
                 "members": [
                     {

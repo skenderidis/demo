@@ -12,7 +12,7 @@ resource "random_string" "random-rg-name" {
 
 # Create a resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "${var.rg_name}-${random_string.random-rg-name.result}"
+  name     = "${var.rg_prefix}-${var.rg_name}-${random_string.random-rg-name.result}"
   location = var.location
   tags = {
     owner = var.tag
@@ -61,17 +61,54 @@ resource "azurerm_network_security_group" "nsg" {
   resource_group_name = azurerm_resource_group.rg.name 
 
   security_rule {
-    name                       = "allow-http"
-    description                = "allow-http"
+    name                       = "allow-kibana"
+    description                = "allow-kibana"
     priority                   = 110
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "80"
+    destination_port_range     = "5601"
     source_address_prefixes	   = var.allowedIPs
     destination_address_prefix = "*"
   }
+  security_rule {
+    name                       = "allow-grafana"
+    description                = "allow-grafana"
+    priority                   = 111
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "8080"
+    source_address_prefixes	   = var.allowedIPs
+    destination_address_prefix = "*"
+  } 
+    security_rule {
+    name                       = "allow-locust"
+    description                = "allow-locust"
+    priority                   = 112
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "8090"
+    source_address_prefixes	   = var.allowedIPs
+    destination_address_prefix = "*"
+  } 
+
+    security_rule {
+    name                       = "allow-prometheus"
+    description                = "allow-prometheus"
+    priority                   = 112
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "9090"
+    source_address_prefixes	   = var.allowedIPs
+    destination_address_prefix = "*"
+  } 
   tags = {
     owner = var.tag
   }

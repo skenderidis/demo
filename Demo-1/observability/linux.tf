@@ -30,7 +30,7 @@ resource "azurerm_public_ip" "web-linux-vm-ip" {
 resource "azurerm_network_interface" "web-vm-nic" {
   depends_on=[azurerm_public_ip.web-linux-vm-ip]
 
-  name                = "vm-nic-${random_string.linux.result}"
+  name                = "${var.location}-${var.rg_prefix}-vm-nic-${random_string.linux.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   
@@ -84,7 +84,7 @@ resource "azurerm_linux_virtual_machine" "web-linux-vm" {
 
   admin_ssh_key {
 	username       = var.username
- 	public_key     = file("./modules/id_rsa.pub")
+ 	public_key     = file("./id_rsa.pub")
   }
   
   tags = {
@@ -94,51 +94,6 @@ resource "azurerm_linux_virtual_machine" "web-linux-vm" {
 
 # Data template Bash bootstrapping file
 data "template_file" "linux-vm-cloud-init" {
-  template = file("./modules/docker-init.sh")
+  template = file("./docker-init.sh")
 }
 
-
-resource "null_resource" "add-server" {
-  triggers = {
-    vm_name = azurerm_linux_virtual_machine.web-linux-vm.name
-    vm_ip   = azurerm_public_ip.web-linux-vm-ip.ip_address
-  }  
-  provisioner "local-exec" {
-      command = <<EOT
-        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
-        --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/Azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
-      EOT
-  }
-  provisioner "local-exec" {
-    when    = destroy
-    command = <<EOT
-        curl --location -k --request DELETE 'https://${var.gtm_ip}/mgmt/tm/gtm/server/${self.triggers.vm_name}' \
-        --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password}
-      EOT
-    on_failure = continue
-}
-
-}
-
-resource "null_resource" "add-pool-member-01" {
-  provisioner "local-exec" {
-      command = <<EOT
-        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${var.pool}/' \
-        --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${azurerm_linux_virtual_machine.web-linux-vm.name}:${azurerm_public_ip.web-linux-vm-ip.ip_address}"}'
-      EOT
-  }
-  provisioner "local-exec" {
-    when    = destroy
-    command = <<EOT
-        curl --location -k --request DELETE 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${var.pool}/${azurerm_linux_virtual_machine.web-linux-vm.name}:${azurerm_public_ip.web-linux-vm-ip.ip_address}' \
-        --header 'Content-Type: application/json' \
-        --user ${var.username}:${var.password}
-      EOT
-    on_failure = continue
-}  
-}

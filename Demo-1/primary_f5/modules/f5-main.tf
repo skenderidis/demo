@@ -219,7 +219,7 @@ module "azure_f5" {
 resource "null_resource" "add-server" {
   triggers = {
     vm_name   = module.azure_f5.name
-    vm_ip     = azurerm_public_ip.pip_app1.ip_address
+    vm_ip     = module.azure_f5.ext_public_ip
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip
@@ -249,11 +249,79 @@ resource "null_resource" "add-server" {
 resource "null_resource" "add-pool-member-01" {
   triggers = {
     vm_name   = module.azure_f5.name
-    vm_ip     = azurerm_public_ip.pip_app1.ip_address
+    vm_ip     = module.azure_f5.ext_public_ip
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip
     pool      = var.pool
+  } 
+
+  depends_on = [null_resource.add-server]
+  provisioner "local-exec" {
+      command = <<EOT
+        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members' \
+        --header 'Content-Type: application/json' \
+        --user ${self.triggers.username}:${self.triggers.password} \
+        --data-raw '{"name": "${self.triggers.vm_name}:${self.triggers.vm_ip}"}'
+      EOT
+  }
+  provisioner "local-exec" {
+    when    = destroy
+    command = <<EOT
+        curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members/${self.triggers.vm_name}:${self.triggers.vm_ip}' \
+        --header 'Content-Type: application/json' \
+        --connect-timeout 10 \
+        --user ${self.triggers.username}:${self.triggers.password}
+      EOT
+    on_failure = continue
+}  
+}
+
+
+
+
+
+
+
+resource "null_resource" "add-f5" {
+  triggers = {
+    vm_name   = module.azure_f5.name
+    vm_ip     = module.azure_f5.mgmt_public_ip
+    username  = var.username
+    password  = var.password
+    gtm_ip    = var.gtm_ip
+    pool      = "bigip_pool"
+  }  
+  provisioner "local-exec" {
+    
+      command = <<EOT
+        curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
+        --header 'Content-Type: application/json' \
+        --user ${var.username}:${var.password} \
+        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
+      EOT
+  }
+  provisioner "local-exec" {
+    when    = destroy
+    command = <<EOT
+        curl --location -k --request DELETE 'https://${self.triggers.gtm_ip}/mgmt/tm/gtm/server/${self.triggers.vm_name}' \
+        --header 'Content-Type: application/json' \
+        --connect-timeout 10 \
+        --user ${self.triggers.username}:${self.triggers.password}
+      EOT
+    on_failure = continue
+}
+
+}
+
+resource "null_resource" "add-pool-member-f5" {
+  triggers = {
+    vm_name   = module.azure_f5.name
+    vm_ip     = module.azure_f5.mgmt_public_ip
+    username  = var.username
+    password  = var.password
+    gtm_ip    = var.gtm_ip
+    pool      = "bigip_pool"
   } 
 
   depends_on = [null_resource.add-server]

@@ -7,13 +7,13 @@ locals{
 module "bigip-east-us" {
   source    = "./modules"
   location  = "eastus"
-  rg_prefix    = "F5-eastus"
+  rg_prefix    = "Primary-DC"
   gtm_ip    = local.gslb_data.mgmt_ip
   username	= var.username
   password	= var.password
   pool      = "america_pool"
   sd_fqdn   = "us.f5demo.cloud"
-  count = 2
+  count = 1
   
 }
 
@@ -27,7 +27,7 @@ module "bigip-west-us" {
   password	= var.password
   pool      = "america_pool" 
   sd_fqdn   = "us.f5demo.cloud"
-  count = 2
+  count = 0
 }
 
 
@@ -40,7 +40,7 @@ module "bigip-north-eu" {
   password	= var.password
   pool      = "europe_pool" 
   sd_fqdn   = "eu.f5demo.cloud"
-  count = 1
+  count = 0
 }
 
 module "bigip-west-eu" {
@@ -64,5 +64,5 @@ module "bigip-asia" {
   password	= var.password
   pool      = "asia_pool"
   sd_fqdn   = "as.f5demo.cloud"
-  count = 1
+  count = 0
 }

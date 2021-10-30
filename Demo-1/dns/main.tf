@@ -18,7 +18,7 @@ resource "azurerm_dns_a_record" "gslb_dns" {
   zone_name           = var.zone_name
   resource_group_name = var.rg_zone
   ttl                 = 300
-  records             = ["${local.gslb_data.mgmt_ip}"]
+  records             = ["${local.gslb_data.dns_ip}"]
 }
 
 resource "azurerm_dns_ns_record" "delegation-www" {

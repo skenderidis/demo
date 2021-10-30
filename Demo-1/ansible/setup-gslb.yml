@@ -93,9 +93,19 @@
       provider: "{{ provider }}"
     delegate_to: localhost
 
-    
+   - name: Create a BigIP GTM pool
+    bigip_gtm_pool:
+      name: bigip_pool
+      preferred_lb_method: round-robin
+      alternate_lb_method: round-robin
+      ttl: 10
+      type: a
+      max_answers_returned: 50
+      provider: "{{ provider }}"
+    delegate_to: localhost
 
-  - name: Create a Europe GTM pool
+
+   - name: Create a Europe GTM pool
     bigip_gtm_pool:
       name: europe_pool
       preferred_lb_method: topology
@@ -227,5 +237,16 @@
       type: a
       pools:
         - name: app_asia_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create bigip.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: round-robin
+      last_resort_pool: bigip_pool
+      name: bigip.f5demo.cloud
+      type: a
+      pools:
+        - name: bigip_pool
       provider: "{{ provider }}"
     delegate_to: localhost

@@ -94,7 +94,7 @@
     delegate_to: localhost
 
    - name: Create a BigIP GTM pool
-    bigip_gtm_pool:
+     bigip_gtm_pool:
       name: bigip_pool
       preferred_lb_method: round-robin
       alternate_lb_method: round-robin
@@ -106,7 +106,7 @@
 
 
    - name: Create a Europe GTM pool
-    bigip_gtm_pool:
+     bigip_gtm_pool:
       name: europe_pool
       preferred_lb_method: topology
       alternate_lb_method: round-robin

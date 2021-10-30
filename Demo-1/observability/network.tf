@@ -121,6 +121,18 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefixes	   = var.allowedIPs
     destination_address_prefix = "*"
   } 
+     security_rule {
+    name                       = "allow-elastic"
+    description                = "allow-elastic"
+    priority                   = 114
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "9200"
+    source_address_prefixes	   = var.allowedIPs
+    destination_address_prefix = "*"
+  }  
   tags = {
     owner = var.tag
   }

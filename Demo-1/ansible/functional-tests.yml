@@ -1,0 +1,16 @@
+---
+- name: Functional Tests
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+
+  - name: Test Application
+    uri:
+      url: http://www.f5demo.cloud
+      method: GET
+    register: http_response
+    changed_when: http_response.status == 200  
+    retries: 60
+    until: http_response.status == 200
+    delay: 3

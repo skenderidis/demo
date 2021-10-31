@@ -1,0 +1,10 @@
+{
+  "description" : "Add geoip info",
+  "processors" : [
+    {
+      "geoip" : {
+        "field" : "data.client_ip"
+      }
+    }
+  ]
+}

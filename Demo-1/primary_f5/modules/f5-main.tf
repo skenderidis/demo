@@ -216,9 +216,9 @@ module "azure_f5" {
 
 
 
-resource "null_resource" "add-server" {
+resource "null_resource" "add-app1" {
   triggers = {
-    vm_name   = module.azure_f5.name
+    vm_name   = "app1"
     vm_ip     = module.azure_f5.ext_public_ip
     username  = var.username
     password  = var.password
@@ -246,9 +246,9 @@ resource "null_resource" "add-server" {
 
 }
 
-resource "null_resource" "add-pool-member-01" {
+resource "null_resource" "add-pool-member-app1" {
   triggers = {
-    vm_name   = module.azure_f5.name
+    vm_name   = "app1"
     vm_ip     = module.azure_f5.ext_public_ip
     username  = var.username
     password  = var.password

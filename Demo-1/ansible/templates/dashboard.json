@@ -1,0 +1,1406 @@
+{
+  "dashboard": {
+      "annotations": {
+          "list": [
+              {
+                  "builtIn": 1,
+                  "datasource": "-- Grafana --",
+                  "enable": true,
+                  "hide": true,
+                  "iconColor": "rgba(0, 211, 255, 1)",
+                  "name": "Annotations & Alerts",
+                  "target": {
+                      "limit": 100,
+                      "matchAny": false,
+                      "tags": [],
+                      "type": "dashboard"
+                  },
+                  "type": "dashboard"
+              }
+          ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "gnetId": null,
+      "graphTooltip": 0,
+      "links": [],
+      "liveNow": false,
+      "panels": [
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 5,
+                  "w": 3,
+                  "x": 0,
+                  "y": 0
+              },
+              "id": 13,
+              "options": {
+                  "colorMode": "value",
+                  "graphMode": "none",
+                  "justifyMode": "auto",
+                  "orientation": "auto",
+                  "reduceOptions": {
+                      "calcs": [
+                          "lastNotNull"
+                      ],
+                      "fields": "",
+                      "values": false
+                  },
+                  "text": {},
+                  "textMode": "auto"
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "exemplar": true,
+                      "expr": "count(up{job=\"f5\"})",
+                      "interval": "",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "F5 Devices",
+              "type": "stat"
+          },
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "palette-classic"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      },
+                      "unit": "short"
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 5,
+                  "w": 4,
+                  "x": 3,
+                  "y": 0
+              },
+              "id": 9,
+              "options": {
+                  "colorMode": "value",
+                  "graphMode": "area",
+                  "justifyMode": "auto",
+                  "orientation": "auto",
+                  "reduceOptions": {
+                      "calcs": [
+                          "lastNotNull"
+                      ],
+                      "fields": "",
+                      "values": false
+                  },
+                  "text": {},
+                  "textMode": "auto"
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "exemplar": true,
+                      "expr": "sum (increase(f5_2xxResp{}[$__range]))",
+                      "interval": "",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "2xx Responses",
+              "type": "stat"
+          },
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "palette-classic"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      },
+                      "unit": "short"
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 5,
+                  "w": 4,
+                  "x": 7,
+                  "y": 0
+              },
+              "id": 12,
+              "options": {
+                  "colorMode": "value",
+                  "graphMode": "area",
+                  "justifyMode": "auto",
+                  "orientation": "auto",
+                  "reduceOptions": {
+                      "calcs": [
+                          "lastNotNull"
+                      ],
+                      "fields": "",
+                      "values": false
+                  },
+                  "text": {},
+                  "textMode": "auto"
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "exemplar": true,
+                      "expr": "sum (increase(f5_3xxResp{}[$__range]))",
+                      "interval": "",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "3xx Responses",
+              "type": "stat"
+          },
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "palette-classic"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      },
+                      "unit": "short"
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 5,
+                  "w": 4,
+                  "x": 11,
+                  "y": 0
+              },
+              "id": 11,
+              "options": {
+                  "colorMode": "value",
+                  "graphMode": "area",
+                  "justifyMode": "auto",
+                  "orientation": "auto",
+                  "reduceOptions": {
+                      "calcs": [
+                          "lastNotNull"
+                      ],
+                      "fields": "",
+                      "values": false
+                  },
+                  "text": {},
+                  "textMode": "auto"
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "exemplar": true,
+                      "expr": "sum (increase(f5_4xxResp{}[$__range]))",
+                      "interval": "",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "4xx Responses",
+              "type": "stat"
+          },
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "palette-classic"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      },
+                      "unit": "short"
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 5,
+                  "w": 4,
+                  "x": 15,
+                  "y": 0
+              },
+              "id": 10,
+              "options": {
+                  "colorMode": "value",
+                  "graphMode": "area",
+                  "justifyMode": "auto",
+                  "orientation": "auto",
+                  "reduceOptions": {
+                      "calcs": [
+                          "lastNotNull"
+                      ],
+                      "fields": "",
+                      "values": false
+                  },
+                  "text": {},
+                  "textMode": "auto"
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "exemplar": true,
+                      "expr": "sum (increase(f5_5xxResp{}[$__range]))",
+                      "interval": "",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "5xx Responses",
+              "type": "stat"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "palette-classic"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "orange",
+                                  "value": 50
+                              },
+                              {
+                                  "color": "#EAB839",
+                                  "value": 80
+                              },
+                              {
+                                  "color": "#6ED0E0",
+                                  "value": 120
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 300
+                              }
+                          ]
+                      },
+                      "unit": "short"
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 5,
+                  "w": 5,
+                  "x": 19,
+                  "y": 0
+              },
+              "id": 21,
+              "options": {
+                  "colorMode": "value",
+                  "graphMode": "area",
+                  "justifyMode": "auto",
+                  "orientation": "auto",
+                  "reduceOptions": {
+                      "calcs": [
+                          "lastNotNull"
+                      ],
+                      "fields": "",
+                      "values": false
+                  },
+                  "text": {},
+                  "textMode": "auto"
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [
+                          {
+                              "field": "data.event_timestamp",
+                              "id": "2",
+                              "settings": {
+                                  "interval": "auto"
+                              },
+                              "type": "date_histogram"
+                          }
+                      ],
+                      "metrics": [
+                          {
+                              "field": "data.response_time",
+                              "id": "1",
+                              "type": "avg"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "Avg Response Time (ms)",
+              "type": "stat"
+          },
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "custom": {
+                          "align": "auto",
+                          "displayMode": "auto"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 10,
+                  "w": 4,
+                  "x": 0,
+                  "y": 5
+              },
+              "id": 5,
+              "options": {
+                  "frameIndex": 5,
+                  "showHeader": true
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "exemplar": true,
+                      "expr": "sum (increase(f5_totRequests{virtualServers!=\"\"}[$__range])) by (instance)",
+                      "format": "table",
+                      "instant": true,
+                      "interval": "60",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "Transaction per F5 Device",
+              "transformations": [
+                  {
+                      "id": "organize",
+                      "options": {
+                          "excludeByName": {
+                              "Time": true,
+                              "instance": false,
+                              "job": true
+                          },
+                          "indexByName": {},
+                          "renameByName": {
+                              "Time": "",
+                              "Value": "Transactions",
+                              "virtualServers": "Virtual Servers"
+                          }
+                      }
+                  }
+              ],
+              "type": "table"
+          },
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "custom": {
+                          "align": "auto",
+                          "displayMode": "auto"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": [
+                      {
+                          "matcher": {
+                              "id": "byName",
+                              "options": "Transactions"
+                          },
+                          "properties": [
+                              {
+                                  "id": "custom.displayMode",
+                                  "value": "gradient-gauge"
+                              }
+                          ]
+                      }
+                  ]
+              },
+              "gridPos": {
+                  "h": 10,
+                  "w": 8,
+                  "x": 4,
+                  "y": 5
+              },
+              "id": 4,
+              "options": {
+                  "frameIndex": 5,
+                  "showHeader": true,
+                  "sortBy": [
+                      {
+                          "desc": true,
+                          "displayName": "Transactions"
+                      }
+                  ]
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "exemplar": true,
+                      "expr": "sum (increase(f5_totRequests{virtualServers!=\"\"}[$__range])) by (virtualServers)",
+                      "format": "table",
+                      "instant": true,
+                      "interval": "60",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "Top Virtual Servers",
+              "transformations": [
+                  {
+                      "id": "organize",
+                      "options": {
+                          "excludeByName": {
+                              "Time": true,
+                              "instance": true,
+                              "job": true
+                          },
+                          "indexByName": {},
+                          "renameByName": {
+                              "Time": "",
+                              "Value": "Transactions",
+                              "virtualServers": "Virtual Servers"
+                          }
+                      }
+                  }
+              ],
+              "type": "table"
+          },
+          {
+              "datasource": null,
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "palette-classic"
+                      },
+                      "custom": {
+                          "axisLabel": "",
+                          "axisPlacement": "auto",
+                          "barAlignment": 0,
+                          "drawStyle": "line",
+                          "fillOpacity": 0,
+                          "gradientMode": "none",
+                          "hideFrom": {
+                              "legend": false,
+                              "tooltip": false,
+                              "viz": false
+                          },
+                          "lineInterpolation": "linear",
+                          "lineWidth": 1,
+                          "pointSize": 5,
+                          "scaleDistribution": {
+                              "type": "linear"
+                          },
+                          "showPoints": "auto",
+                          "spanNulls": false,
+                          "stacking": {
+                              "group": "A",
+                              "mode": "none"
+                          },
+                          "thresholdsStyle": {
+                              "mode": "off"
+                          }
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": [
+                      {
+                          "__systemRef": "hideSeriesFrom",
+                          "matcher": {
+                              "id": "byNames",
+                              "options": {
+                                  "mode": "exclude",
+                                  "names": [
+                                      "{instance=\"192.168.2.4:443\", job=\"f5\", virtualServers=\"/Common/vs_test\"}",
+                                      "{instance=\"192.168.2.5:443\", job=\"f5\", virtualServers=\"/Common/vs_test\"}"
+                                  ],
+                                  "prefix": "All except:",
+                                  "readOnly": true
+                              }
+                          },
+                          "properties": [
+                              {
+                                  "id": "custom.hideFrom",
+                                  "value": {
+                                      "legend": false,
+                                      "tooltip": false,
+                                      "viz": true
+                                  }
+                              }
+                          ]
+                      }
+                  ]
+              },
+              "gridPos": {
+                  "h": 10,
+                  "w": 12,
+                  "x": 12,
+                  "y": 5
+              },
+              "id": 2,
+              "options": {
+                  "legend": {
+                      "calcs": [],
+                      "displayMode": "list",
+                      "placement": "bottom"
+                  },
+                  "tooltip": {
+                      "mode": "single"
+                  }
+              },
+              "targets": [
+                  {
+                      "exemplar": false,
+                      "expr": "rate(f5_totRequests{virtualServers!=\"\"}[2m])",
+                      "instant": false,
+                      "interval": "",
+                      "legendFormat": "",
+                      "refId": "A"
+                  }
+              ],
+              "title": "Transactions over time",
+              "type": "timeseries"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "custom": {
+                          "align": "auto",
+                          "displayMode": "auto"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 10,
+                  "w": 4,
+                  "x": 0,
+                  "y": 15
+              },
+              "id": 15,
+              "options": {
+                  "showHeader": true
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [
+                          {
+                              "field": "data.client_ip",
+                              "id": "2",
+                              "settings": {
+                                  "min_doc_count": "1",
+                                  "order": "desc",
+                                  "orderBy": "_term",
+                                  "size": "10"
+                              },
+                              "type": "terms"
+                          }
+                      ],
+                      "metrics": [
+                          {
+                              "id": "1",
+                              "type": "count"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "Top 10 Clients",
+              "transformations": [
+                  {
+                      "id": "organize",
+                      "options": {
+                          "excludeByName": {},
+                          "indexByName": {},
+                          "renameByName": {
+                              "Count": "# Hits",
+                              "data.client_ip": "Client IP"
+                          }
+                      }
+                  }
+              ],
+              "type": "table"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "custom": {
+                          "align": "auto",
+                          "displayMode": "auto"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 10,
+                  "w": 4,
+                  "x": 4,
+                  "y": 15
+              },
+              "id": 22,
+              "options": {
+                  "showHeader": true
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [
+                          {
+                              "field": "geoip.continent_name.keyword",
+                              "id": "2",
+                              "settings": {
+                                  "min_doc_count": "1",
+                                  "order": "desc",
+                                  "orderBy": "_term",
+                                  "size": "10"
+                              },
+                              "type": "terms"
+                          }
+                      ],
+                      "metrics": [
+                          {
+                              "id": "1",
+                              "type": "count"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "Top Continents",
+              "transformations": [
+                  {
+                      "id": "organize",
+                      "options": {
+                          "excludeByName": {},
+                          "indexByName": {},
+                          "renameByName": {
+                              "Count": "# Hits",
+                              "geoip.continent_name.keyword": "Continent"
+                          }
+                      }
+                  }
+              ],
+              "type": "table"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "custom": {
+                          "align": "auto",
+                          "displayMode": "auto"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 10,
+                  "w": 4,
+                  "x": 8,
+                  "y": 15
+              },
+              "id": 23,
+              "options": {
+                  "showHeader": true
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [
+                          {
+                              "field": "data.user_agent.keyword",
+                              "id": "2",
+                              "settings": {
+                                  "min_doc_count": "1",
+                                  "order": "desc",
+                                  "orderBy": "_term",
+                                  "size": "10"
+                              },
+                              "type": "terms"
+                          }
+                      ],
+                      "metrics": [
+                          {
+                              "id": "1",
+                              "type": "count"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "Top 10 Clients",
+              "transformations": [
+                  {
+                      "id": "organize",
+                      "options": {
+                          "excludeByName": {},
+                          "indexByName": {},
+                          "renameByName": {
+                              "Count": "# Hits",
+                              "data.user_agent.keyword": "User Agents"
+                          }
+                      }
+                  }
+              ],
+              "type": "table"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "description": "",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "palette-classic"
+                      },
+                      "custom": {
+                          "axisLabel": "",
+                          "axisPlacement": "auto",
+                          "barAlignment": 0,
+                          "drawStyle": "line",
+                          "fillOpacity": 0,
+                          "gradientMode": "none",
+                          "hideFrom": {
+                              "legend": false,
+                              "tooltip": false,
+                              "viz": false
+                          },
+                          "lineInterpolation": "linear",
+                          "lineStyle": {
+                              "fill": "solid"
+                          },
+                          "lineWidth": 1,
+                          "pointSize": 5,
+                          "scaleDistribution": {
+                              "type": "linear"
+                          },
+                          "showPoints": "auto",
+                          "spanNulls": true,
+                          "stacking": {
+                              "group": "A",
+                              "mode": "none"
+                          },
+                          "thresholdsStyle": {
+                              "mode": "off"
+                          }
+                      },
+                      "mappings": [],
+                      "min": 0,
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              }
+                          ]
+                      },
+                      "unit": "ms"
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 10,
+                  "w": 12,
+                  "x": 12,
+                  "y": 15
+              },
+              "id": 20,
+              "options": {
+                  "legend": {
+                      "calcs": [],
+                      "displayMode": "list",
+                      "placement": "bottom"
+                  },
+                  "tooltip": {
+                      "mode": "single"
+                  }
+              },
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [
+                          {
+                              "field": "data.event_timestamp",
+                              "id": "2",
+                              "settings": {
+                                  "interval": "10s",
+                                  "min_doc_count": "0",
+                                  "trimEdges": "0"
+                              },
+                              "type": "date_histogram"
+                          }
+                      ],
+                      "metrics": [
+                          {
+                              "field": "data.response_time",
+                              "id": "1",
+                              "settings": {},
+                              "type": "avg"
+                          },
+                          {
+                              "field": "data.response_time",
+                              "id": "4",
+                              "type": "max"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "Response Time over Time (ms)",
+              "transformations": [],
+              "type": "timeseries"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "custom": {
+                          "align": "auto",
+                          "displayMode": "auto"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 11,
+                  "w": 12,
+                  "x": 0,
+                  "y": 25
+              },
+              "id": 18,
+              "options": {
+                  "showHeader": true
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [
+                          {
+                              "field": "data.http_path.keyword",
+                              "id": "2",
+                              "settings": {
+                                  "min_doc_count": "1",
+                                  "order": "desc",
+                                  "orderBy": "_term",
+                                  "size": "10"
+                              },
+                              "type": "terms"
+                          }
+                      ],
+                      "metrics": [
+                          {
+                              "field": "data.response_time",
+                              "id": "7",
+                              "meta": {
+                                  "avg": true,
+                                  "count": true,
+                                  "max": true,
+                                  "std_deviation_bounds_lower": false,
+                                  "std_deviation_bounds_upper": false,
+                                  "sum": false
+                              },
+                              "type": "extended_stats"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "Response Time per URL",
+              "transformations": [
+                  {
+                      "id": "organize",
+                      "options": {
+                          "excludeByName": {},
+                          "indexByName": {
+                              "Average": 1,
+                              "Count": 3,
+                              "Max": 2,
+                              "data.http_path.keyword": 0
+                          },
+                          "renameByName": {
+                              "Average": "Avg (ms)",
+                              "Count": "# Hits",
+                              "Max": "Max (ms)",
+                              "data.http_path.keyword": "URL"
+                          }
+                      }
+                  }
+              ],
+              "type": "table"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "#6ED0E0",
+                                  "value": 1000
+                              },
+                              {
+                                  "color": "#EAB839",
+                                  "value": 5000
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 10000
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": []
+              },
+              "gridPos": {
+                  "h": 11,
+                  "w": 12,
+                  "x": 12,
+                  "y": 25
+              },
+              "id": 17,
+              "options": {
+                  "basemap": {
+                      "config": {
+                          "showLabels": true,
+                          "theme": "auto"
+                      },
+                      "type": "carto"
+                  },
+                  "controls": {
+                      "mouseWheelZoom": true,
+                      "showAttribution": false,
+                      "showDebug": false,
+                      "showScale": false,
+                      "showZoom": true
+                  },
+                  "layers": [
+                      {
+                          "config": {
+                              "color": {
+                                  "field": "Count",
+                                  "fixed": "dark-green"
+                              },
+                              "fillOpacity": 0.4,
+                              "shape": "circle",
+                              "showLegend": true,
+                              "size": {
+                                  "field": "Count",
+                                  "fixed": 5,
+                                  "max": 20,
+                                  "min": 10
+                              }
+                          },
+                          "location": {
+                              "geohash": "geoip.location",
+                              "latitude": "Count",
+                              "longitude": "Count",
+                              "mode": "geohash"
+                          },
+                          "type": "markers"
+                      }
+                  ],
+                  "view": {
+                      "id": "zero",
+                      "lat": 0,
+                      "lon": 0,
+                      "zoom": 2
+                  }
+              },
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [
+                          {
+                              "field": "geoip.location",
+                              "id": "2",
+                              "settings": {
+                                  "precision": "3"
+                              },
+                              "type": "geohash_grid"
+                          }
+                      ],
+                      "metrics": [
+                          {
+                              "id": "1",
+                              "type": "count"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "World View",
+              "type": "geomap"
+          },
+          {
+              "datasource": "Elasticsearch",
+              "fieldConfig": {
+                  "defaults": {
+                      "color": {
+                          "mode": "thresholds"
+                      },
+                      "custom": {
+                          "align": "auto",
+                          "displayMode": "auto"
+                      },
+                      "mappings": [],
+                      "thresholds": {
+                          "mode": "absolute",
+                          "steps": [
+                              {
+                                  "color": "green",
+                                  "value": null
+                              },
+                              {
+                                  "color": "red",
+                                  "value": 80
+                              }
+                          ]
+                      }
+                  },
+                  "overrides": [
+                      {
+                          "matcher": {
+                              "id": "byName",
+                              "options": "data.event_timestamp"
+                          },
+                          "properties": [
+                              {
+                                  "id": "custom.width",
+                                  "value": 186
+                              }
+                          ]
+                      }
+                  ]
+              },
+              "gridPos": {
+                  "h": 22,
+                  "w": 24,
+                  "x": 0,
+                  "y": 36
+              },
+              "id": 7,
+              "options": {
+                  "showHeader": true,
+                  "sortBy": [
+                      {
+                          "desc": false,
+                          "displayName": "data.event_timestamp"
+                      }
+                  ]
+              },
+              "pluginVersion": "8.2.2",
+              "targets": [
+                  {
+                      "alias": "",
+                      "bucketAggs": [],
+                      "metrics": [
+                          {
+                              "id": "1",
+                              "settings": {
+                                  "size": "500"
+                              },
+                              "type": "raw_data"
+                          }
+                      ],
+                      "query": "",
+                      "refId": "A",
+                      "timeField": "data.event_timestamp"
+                  }
+              ],
+              "title": "Raw Logs",
+              "transformations": [
+                  {
+                      "id": "organize",
+                      "options": {
+                          "excludeByName": {
+                              "_id": true,
+                              "_index": true,
+                              "_type": true,
+                              "data.event_source": true,
+                              "data.http_method": true,
+                              "data.node_port": true,
+                              "data.referer": true,
+                              "data.tenant": true,
+                              "data.vip": false,
+                              "data.vip_port": true,
+                              "geoip.continent_name": true,
+                              "geoip.location.lat": true,
+                              "geoip.location.lon": true,
+                              "highlight": true,
+                              "sort": true,
+                              "telemetryEventCategory": true
+                          },
+                          "indexByName": {
+                              "_id": 2,
+                              "_index": 3,
+                              "_type": 4,
+                              "data.client_ip": 5,
+                              "data.event_source": 6,
+                              "data.event_timestamp": 0,
+                              "data.http_host": 7,
+                              "data.http_method": 8,
+                              "data.http_path": 9,
+                              "data.http_status": 10,
+                              "data.node": 11,
+                              "data.node_port": 12,
+                              "data.pool_name": 13,
+                              "data.referer": 14,
+                              "data.response_time": 15,
+                              "data.tenant": 16,
+                              "data.user_agent": 17,
+                              "data.vip": 18,
+                              "data.vip_port": 19,
+                              "geoip.continent_name": 20,
+                              "geoip.country_iso_code": 1,
+                              "geoip.location.lat": 21,
+                              "geoip.location.lon": 22,
+                              "highlight": 23,
+                              "sort": 24,
+                              "telemetryEventCategory": 25
+                          },
+                          "renameByName": {
+                              "data.client_ip": "Source IP",
+                              "data.event_source": "",
+                              "data.event_timestamp": "Timestamp",
+                              "data.http_host": "Hostname",
+                              "data.http_path": "URL",
+                              "data.http_status": "Status Code",
+                              "data.node": "Server IP",
+                              "data.node_port": "",
+                              "data.pool_name": "Pool",
+                              "data.referer": "Referer",
+                              "data.response_time": "Response Time",
+                              "data.user_agent": "User Agent",
+                              "data.vip": "VServer IP ",
+                              "geoip.country_iso_code": "Country"
+                          }
+                      }
+                  }
+              ],
+              "type": "table"
+          }
+      ],
+      "refresh": false,
+      "schemaVersion": 31,
+      "style": "dark",
+      "tags": [],
+      "templating": {
+          "list": []
+      },
+      "time": {
+          "from": "now-6h",
+          "to": "now"
+      },
+      "timepicker": {},
+      "timezone": "",
+      "title": "F5 Real Time Stats",
+      "version": 13
+  }
+}

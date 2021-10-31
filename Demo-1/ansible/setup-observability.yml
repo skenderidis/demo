@@ -1,0 +1,117 @@
+- name: Configure Elastic
+  hosts: localhost
+  connection: local
+  vars_files:
+    - /home/kostas/demo/Demo-1/observability_info.json
+  gather_facts: false
+  vars:
+    provider:
+      password: "{{admin_pass}}"
+      server: "{{mgmt_ip}}"
+      user: "{{admin_user}}"
+      validate_certs: no
+      server_port: 443
+  tasks:
+ 
+
+  - name: Create index
+    uri:
+      url: http://{{mgmt_ip}}:9200/eventdata/
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: PUT
+      force_basic_auth: yes
+      validate_certs: no
+      status_code: [200]
+#    register: gtm_listener_add_POST_return
+
+
+  - name: Create mapping
+    uri:
+      url: http://{{mgmt_ip}}:9200/eventdata/f5.telemetry/_mapping/
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: PUT
+      body: "{{ lookup('file','templates/mapping.json') }}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200]
+
+
+
+
+  - name: Create Geo processor pipeline
+    uri:
+      url: http://{{mgmt_ip}}:9200/_ingest/pipeline/geoip
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: PUT
+      body: "{{ lookup('file','templates/geoip-processor.json') }}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200]
+
+
+  - name: Create mapping
+    uri:
+      url: http://{{mgmt_ip}}:9200/eventdata/f5.telemetry/_mapping/
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: PUT
+      body: "{{ lookup('file','templates/geo-mapping.json') }}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200]
+
+
+  - name: Create mapping
+    uri:
+      url: http://{{mgmt_ip}}:9200/eventdata/_settings
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: PUT
+      body: "{{ lookup('file','templates/default-pipeline.json') }}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200]
+
+  - name: Setup Grafana source - Prometheus
+    uri:
+      url: http://{{mgmt_ip}}:8080/api/datasources
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: POST
+      body: "{{ lookup('file','templates/prometheus.json') }}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200]
+
+  - name: Setup Grafana source - Elastic
+    uri:
+      url: http://{{mgmt_ip}}:8080/api/datasources
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: POST
+      body: "{{ lookup('file','templates/elastic.json') }}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200]
+
+
+  - name: Setup Grafana dashboard
+    uri:
+      url: http://{{mgmt_ip}}:8080/api/dashboards/db
+      user: "{{admin_user}}"
+      password: "{{admin_pass}}"
+      method: POST
+      body: "{{ lookup('file','templates/dashboard.json') }}"
+      force_basic_auth: yes
+      body_format: json
+      validate_certs: no
+      status_code: [200]

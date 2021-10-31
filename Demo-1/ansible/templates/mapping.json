@@ -1,0 +1,104 @@
+{
+    "properties": {
+        "data": {
+            "properties": {
+                "client_ip": {
+                    "type": "ip"
+                },
+                "vip": {
+                    "type": "ip"
+                },
+                "node": {
+                    "type": "ip"
+                },
+                "node_port": {
+                    "type": "integer"
+                },
+                "response_time": {
+                    "type": "float"
+                },
+                "vip_port": {
+                    "type": "integer"
+                },
+                "http_status": {
+                    "type": "float"
+                },
+                "http_method": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "http_path": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "http_host": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "user_agent": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "referer": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "pool_name": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "event_source": {
+                    "type": "text",
+                    "fields": {
+                        "keyword": {
+                            "type": "keyword",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "event_timestamp": {
+                    "type": "date"
+                }
+            }
+        },
+        "telemetryEventCategory": {
+            "type": "text",
+            "fields": {
+                "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                }
+            }
+        }
+    }
+}

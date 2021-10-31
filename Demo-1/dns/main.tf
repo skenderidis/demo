@@ -9,9 +9,16 @@ resource "azurerm_dns_a_record" "observ_dns" {
   zone_name           = var.zone_name
   resource_group_name = var.rg_zone
   ttl                 = 300
-  records             = ["${local.observ_data.observability_ip}"]
+  records             = ["${local.observ_data.mgmt_ip}"]
 }
 
+resource "azurerm_dns_a_record" "gtm_dns" {
+  name                = var.gtm_fqdn
+  zone_name           = var.zone_name
+  resource_group_name = var.rg_zone
+  ttl                 = 300
+  records             = ["${local.gslb_data.mgmt_ip}"]
+}
 
 resource "azurerm_dns_a_record" "gslb_dns" {
   name                = var.gslb_fqdn

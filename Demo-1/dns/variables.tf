@@ -17,6 +17,7 @@ variable location 			{ default = "eastus" }
 variable zone_name 			{ default = "f5demo.cloud" }
 variable rg_zone         	{ default = "f5demo_dns" }
 variable observ_fqdn        { default = "monitor" }
+variable gtm_fqdn           { default = "gtm" }
 variable gslb_fqdn          { default = "gslb" }
 variable app_fqdn 			{ default = "www" }
 variable pool_europe 		{ default = "eu" }

@@ -15,7 +15,7 @@
         "Elastic": { 
             "class": "Telemetry_Consumer",
             "type": "ElasticSearch",
-            "host": "monitoring.f5demo.cloud",
+            "host": "monitor.f5demo.cloud",
             "protocol": "http",
             "port": "9200",
             "apiVersion": "6.8",

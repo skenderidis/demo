@@ -219,7 +219,7 @@ module "azure_f5" {
 resource "null_resource" "add-app1" {
   triggers = {
     vm_name   = "app1"
-    vm_ip     = module.azure_f5.ext_public_ip
+    vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip
@@ -249,14 +249,14 @@ resource "null_resource" "add-app1" {
 resource "null_resource" "add-pool-member-app1" {
   triggers = {
     vm_name   = "app1"
-    vm_ip     = module.azure_f5.ext_public_ip
+    vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip
     pool      = var.pool
   } 
 
-  depends_on = [null_resource.add-server]
+  depends_on = [null_resource.add-app1]
   provisioner "local-exec" {
       command = <<EOT
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members' \
@@ -298,7 +298,7 @@ resource "null_resource" "add-f5" {
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/server/' \
         --header 'Content-Type: application/json' \
         --user ${var.username}:${var.password} \
-        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:80","enabled": true}]}'
+        --data-raw '{"name": "${self.triggers.vm_name}","datacenter": "/Common/azure","monitor": "/Common/tcp","product": "generic-host","virtualServerDiscovery": "disabled","addresses": [{"name": "${self.triggers.vm_ip}","deviceName": "${self.triggers.vm_ip}","translation": "none"}],"virtualServers": [{"name": "${self.triggers.vm_ip}","destination": "${self.triggers.vm_ip}:443","enabled": true}]}'
       EOT
   }
   provisioner "local-exec" {
@@ -324,7 +324,7 @@ resource "null_resource" "add-pool-member-f5" {
     pool      = "bigip_pool"
   } 
 
-  depends_on = [null_resource.add-server]
+  depends_on = [null_resource.add-f5]
   provisioner "local-exec" {
       command = <<EOT
         curl --location -k --request POST 'https://${var.gtm_ip}/mgmt/tm/gtm/pool/a/~Common~${self.triggers.pool}/members' \

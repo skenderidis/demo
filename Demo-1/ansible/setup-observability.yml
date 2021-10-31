@@ -2,7 +2,7 @@
   hosts: localhost
   connection: local
   vars_files:
-    - /home/kostas/demo/Demo-1/observability_info.json
+    - /tmp/observability_info.json
   gather_facts: false
   vars:
     provider:
@@ -38,9 +38,6 @@
       validate_certs: no
       status_code: [200]
 
-
-
-
   - name: Create Geo processor pipeline
     uri:
       url: http://{{mgmt_ip}}:9200/_ingest/pipeline/geoip
@@ -52,7 +49,6 @@
       body_format: json
       validate_certs: no
       status_code: [200]
-
 
   - name: Create mapping
     uri:

@@ -18,7 +18,7 @@ resource "azurerm_container_group" "master" {
     commands = ["--worker --master-host=monitor.f5demo.cloud"]
 
     ports {
-      port     = 8089
+      port     = 5557
       protocol = "TCP"
     }
   }

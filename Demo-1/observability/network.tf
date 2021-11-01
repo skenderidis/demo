@@ -108,7 +108,18 @@ resource "azurerm_network_security_group" "nsg" {
     source_address_prefixes	   = var.allowedIPs
     destination_address_prefix = "*"
   } 
-
+    security_rule {
+    name                       = "allow-locust-5557"
+    description                = "allow-locust-5557"
+    priority                   = 118
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "5557"
+    source_address_prefixes	   = var.allowedIPs
+    destination_address_prefix = "*"
+  } 
     security_rule {
     name                       = "allow-prometheus"
     description                = "allow-prometheus"

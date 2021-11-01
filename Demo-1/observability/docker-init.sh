@@ -77,7 +77,7 @@ docker run --name elastic --net elastic -d -p 9200:9200 -p 9300:9300 -e "discove
 docker run --name kibana --net elastic -d -p 5601:5601 -e "ELASTICSEARCH_HOSTS=http://elastic:9200" --restart unless-stopped docker.elastic.co/kibana/kibana:6.8.20
 docker run --name grafana --net elastic -d -p 8080:3000 --restart unless-stopped grafana/grafana
 docker run --name prometheus --net elastic -d -p 9090:9090 -v /tmp/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
-docker run --name=locust -d -p 5557:5557 -p 8090:8089 --restart unless-stopped skenderidis/test3 -f /mnt/locust/locustfile.py --master
+docker run --name=locust -d -p 5557:5557 -p 8090:8089 --restart unless-stopped skenderidis/locust-hackazon -f /mnt/locust/locustfile.py --master
 EOF
 
 sh /etc/rc.local

@@ -13,6 +13,25 @@
       server_port: 443
   tasks:
  
+  - name: Test Elastic readiness
+    uri:
+      url: http://{{mgmt_ip}}:9200
+      method: GET
+    register: http_response
+    changed_when: http_response.status == 200  
+    retries: 60
+    until: http_response.status == 200
+    delay: 3
+
+  - name: Test Grafana readiness
+    uri:
+      url: http://{{mgmt_ip}}:8080
+      method: GET
+    register: http_response
+    changed_when: http_response.status == 200  
+    retries: 60
+    until: http_response.status == 200
+    delay: 3
 
   - name: Create index
     uri:

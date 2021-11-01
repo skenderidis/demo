@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "example" {
-  name     = "example-resources"
+  name     = "example-resources2"
   location = "West Europe"
 }
 
@@ -12,13 +12,20 @@ resource "azurerm_container_group" "master" {
 
   container {
     name   = "locust-worker"
-    image  = "skenderidis/test3"
+    image  = "skenderidis/locust-hackazon"
     cpu    = "2"
     memory = "4"
-    commands = ["--worker --master-host=monitor.f5demo.cloud"]
+    commands = [
+        "locust",
+        "--locustfile",
+        "/mnt/locust/locustfile.py",
+        "--worker",
+        "--master-host",
+        "monitor.f5demo.cloud"
+    ]
 
     ports {
-      port     = 5557
+      port     = 8089
       protocol = "TCP"
     }
   }

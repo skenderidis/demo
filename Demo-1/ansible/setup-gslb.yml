@@ -142,6 +142,7 @@
       alternate_lb_method: round-robin
       ttl: 10
       type: a
+      max_answers_returned: 50
       provider: "{{ provider }}"
     delegate_to: localhost
 
@@ -152,6 +153,7 @@
       alternate_lb_method: round-robin
       ttl: 10
       type: a
+      max_answers_returned: 50
       provider: "{{ provider }}"
     delegate_to: localhost
 
@@ -162,6 +164,7 @@
       alternate_lb_method: round-robin
       ttl: 10
       type: a
+      max_answers_returned: 50
       provider: "{{ provider }}"
     delegate_to: localhost
 

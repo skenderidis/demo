@@ -4,7 +4,7 @@
 
 
 # Generate randon name for virtual machine
-resource "random_string" "linux-02" {
+resource "random_string" "linux" {
   length  = 4
   special = false
   lower   = true
@@ -14,9 +14,9 @@ resource "random_string" "linux-02" {
 
 
 # Get a Static Public IP
-resource "azurerm_public_ip" "web-linux-vm-ip-02" {
+resource "azurerm_public_ip" "web-linux-vm-ip" {
 
-  name                = "vm-pip-${random_string.linux-02.result}"
+  name                = "vm-pip-${random_string.linux.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
@@ -27,39 +27,39 @@ resource "azurerm_public_ip" "web-linux-vm-ip-02" {
 }
 
 # Create Network Card for web VM
-resource "azurerm_network_interface" "web-vm-nic-02" {
-  depends_on=[azurerm_public_ip.web-linux-vm-ip-02]
+resource "azurerm_network_interface" "web-vm-nic" {
+  depends_on=[azurerm_public_ip.web-linux-vm-ip]
 
-  name                = "${var.location}-${var.rg_prefix}-vm-nic-${random_string.linux-02.result}"
+  name                = "vm-nic-${random_string.linux.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   
   ip_configuration {
-    name                          = "internal-${random_string.linux-02.result}"
+    name                          = "internal-${random_string.linux.result}"
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.web-linux-vm-ip-02.id
+    public_ip_address_id          = azurerm_public_ip.web-linux-vm-ip.id
   }
   tags = {
     owner = var.tag
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "nsg_vnic-02" {
+resource "azurerm_network_interface_security_group_association" "nsg_vnic" {
 
-  network_interface_id      = azurerm_network_interface.web-vm-nic-02.id
+  network_interface_id      = azurerm_network_interface.web-vm-nic.id
   network_security_group_id = azurerm_network_security_group.nsg.id
   
 }
 
 # Create Linux VM with web server
-resource "azurerm_linux_virtual_machine" "web-linux-vm-02" {
-  depends_on=[azurerm_network_interface.web-vm-nic-02]
+resource "azurerm_linux_virtual_machine" "web-linux-vm" {
+  depends_on=[azurerm_network_interface.web-vm-nic]
 
-  name                  = "linux-vm-${random_string.linux-02.result}"
+  name                  = "${var.location}-${var.rg_prefix}-linux-vm-${random_string.linux.result}"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.web-vm-nic-02.id]
+  network_interface_ids = [azurerm_network_interface.web-vm-nic.id]
   size                  = var.vm-size
 
   source_image_reference {
@@ -70,12 +70,12 @@ resource "azurerm_linux_virtual_machine" "web-linux-vm-02" {
   }
 
   os_disk {
-    name                 = "vm-os-disk-${random_string.linux-02.result}"
+    name                 = "vm-os-disk-${random_string.linux.result}"
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
-  computer_name  = "vm-${random_string.linux-02.result}"
+  computer_name  = "vm-${random_string.linux.result}"
   admin_username = var.username
   admin_password = var.password 
   custom_data    = base64encode(data.template_file.linux-vm-cloud-init.rendered)
@@ -93,16 +93,15 @@ resource "azurerm_linux_virtual_machine" "web-linux-vm-02" {
 }
 
 # Data template Bash bootstrapping file
-data "template_file" "linux-vm-cloud-init-02" {
+data "template_file" "linux-vm-cloud-init" {
   template = file("./modules/docker-init.sh")
 }
 
 
-
-resource "null_resource" "add-server-02" {
+resource "null_resource" "add-server-01" {
   triggers = {
-    vm_name   = azurerm_linux_virtual_machine.web-linux-vm-02.name
-    vm_ip     = azurerm_public_ip.web-linux-vm-ip-02.ip_address
+    vm_name   = azurerm_linux_virtual_machine.web-linux-vm.name
+    vm_ip     = azurerm_public_ip.web-linux-vm-ip.ip_address
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip
@@ -128,16 +127,17 @@ resource "null_resource" "add-server-02" {
 
 }
 
-resource "null_resource" "add-pool-member-02" {
+resource "null_resource" "add-pool-member-01" {
   triggers = {
-    vm_name   = azurerm_linux_virtual_machine.web-linux-vm-02.name
-    vm_ip     = azurerm_public_ip.web-linux-vm-ip-02.ip_address
+    vm_name   = azurerm_linux_virtual_machine.web-linux-vm.name
+    vm_ip     = azurerm_public_ip.web-linux-vm-ip.ip_address
     username  = var.username
     password  = var.password
     gtm_ip    = var.gtm_ip
     pool      = var.pool
   } 
-  depends_on = [null_resource.add-server-02]
+
+  depends_on = [null_resource.add-server-01]
 
   provisioner "local-exec" {
       command = <<EOT

@@ -13,8 +13,10 @@ module "apps-us" {
   username	= var.username
   password	= var.password
   pool      = "app_america_pool"
-  count = 1
+  count = 0
 }
+
+
 
 # Create a resource group for Demo
 module "apps-europe" {
@@ -25,7 +27,7 @@ module "apps-europe" {
   username	= var.username
   password	= var.password
   pool      = "app_europe_pool"
-  count = 1
+  count = 0
 }
 
 
@@ -38,7 +40,7 @@ module "apps-asia" {
   username	= var.username
   password	= var.password
   pool      = "app_asia_pool"
-  count = 1
+  count = 0
 }
 
 output "america_public_ips" {
@@ -52,5 +54,7 @@ output "europe_public_ips" {
 output "asia_public_ips" {
   value = module.apps-asia[*]
 }
+
+
 
 

@@ -1,12 +1,17 @@
-resource "azurerm_resource_group" "example" {
-  name     = "example-resources2"
-  location = "West Europe"
+##############################################
+######## Create worker Resource Group VNETs ########
+##############################################
+
+resource "random_string" "suffix" {
+  length  = 3
+  special = false
 }
 
-resource "azurerm_container_group" "master" {
-  name                = "worker"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+
+resource "azurerm_container_group" "worker" {
+  name                = "locust-worker-${random_string.suffix.result}"
+  location            = var.location
+  resource_group_name = var.rg_name
   ip_address_type     = "public"
   os_type             = "Linux"
 
@@ -21,13 +26,11 @@ resource "azurerm_container_group" "master" {
         "/mnt/locust/locustfile.py",
         "--worker",
         "--master-host",
-        "monitor.f5demo.cloud"
+        var.master
     ]
-
     ports {
       port     = 8089
       protocol = "TCP"
     }
   }
-
 }

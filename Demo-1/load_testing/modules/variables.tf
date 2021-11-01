@@ -1,11 +1,4 @@
-################################
-## Azure Provider _ Variables ##
-################################
-
-######### Azure authentication variables #########
-
-variable subscription_id  		{}
-variable client_id				{}
-variable client_secret  		{}
-variable tenant_id				{}
+variable master                 {}
+variable location                 {}
+variable rg_name                 {}
 

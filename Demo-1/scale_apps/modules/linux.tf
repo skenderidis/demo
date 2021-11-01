@@ -30,7 +30,7 @@ resource "azurerm_public_ip" "web-linux-vm-ip" {
 resource "azurerm_network_interface" "web-vm-nic" {
   depends_on=[azurerm_public_ip.web-linux-vm-ip]
 
-  name                = "vm-nic-${random_string.linux.result}"
+  name                = "${var.location}-${var.rg_prefix}-vm-nic-${random_string.linux.result}"
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   
@@ -56,7 +56,7 @@ resource "azurerm_network_interface_security_group_association" "nsg_vnic" {
 resource "azurerm_linux_virtual_machine" "web-linux-vm" {
   depends_on=[azurerm_network_interface.web-vm-nic]
 
-  name                  = "${var.location}-${var.rg_prefix}-linux-vm-${random_string.linux.result}"
+  name                  = "linux-vm-${random_string.linux.result}"
   location              = var.location
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.web-vm-nic.id]

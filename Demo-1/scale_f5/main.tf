@@ -13,7 +13,7 @@ module "bigip-east-us" {
   password	= var.password
   pool      = "america_pool"
   sd_fqdn   = "us.f5demo.cloud"
-  count = 1
+  count = 0
  
 }
 
@@ -52,7 +52,7 @@ module "bigip-west-eu" {
   password	= var.password
   pool      = "europe_pool" 
   sd_fqdn   = "eu.f5demo.cloud"
-  count = 1
+  count = 0
 }
 
 module "bigip-asia" {

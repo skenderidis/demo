@@ -13,7 +13,7 @@ module "apps-us" {
   username	= var.username
   password	= var.password
   pool      = "app_america_pool"
-  count = 1
+  count = 0
 }
 
 # Create a resource group for Demo

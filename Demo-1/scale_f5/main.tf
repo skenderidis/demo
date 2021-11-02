@@ -27,7 +27,7 @@ module "bigip-west-us" {
   password	= var.password
   pool      = "america_pool" 
   sd_fqdn   = "us.f5demo.cloud"
-  count = 1
+  count = 0
 }
 
 

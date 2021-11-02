@@ -7,7 +7,7 @@ output "west-us" {
   value = module.bigip-west-us[*]
 }
 
-output "uk-south" {
+output "north-eu" {
   value = module.bigip-north-eu[*]
 }
 

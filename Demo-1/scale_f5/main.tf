@@ -31,10 +31,10 @@ module "bigip-west-us" {
 }
 
 
-module "bigip-uk-south" {
+module "bigip-north-eu" {
   source    = "./modules"
   location  = "uksouth"
-  rg_prefix = "Demo-uk-south"
+  rg_prefix = "Demo-north-eu"
   gtm_ip    = local.gslb_data.mgmt_ip
   username	= var.username
   password	= var.password

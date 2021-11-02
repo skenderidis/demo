@@ -56,10 +56,10 @@ resource "azurerm_resource_group" "load_rg_north_eu" {
   name      = "Load-North-eu"
   location  = "northeurope"
 }
-resource "azurerm_resource_group" "load_rg_west_eu" {
+resource "azurerm_resource_group" "load_rg_uk_south" {
   count     = var.count_westeu >= 1 ? 1 : 0
   name      = "Load-West-eu"
-  location  = "westeurope"
+  location  = "uksouth"
 }
 resource "azurerm_resource_group" "load_rg_easteasia" {
   count     = var.count_eastasia >= 1 ? 1 : 0
@@ -93,8 +93,8 @@ module "load-north-eu" {
 
 module "load-west-eu" {
   source    = "./modules"
-  location  = azurerm_resource_group.load_rg_west_eu[0].location
-  rg_name   = azurerm_resource_group.load_rg_west_eu[0].name
+  location  = azurerm_resource_group.load_rg_uk_south[0].location
+  rg_name   = azurerm_resource_group.load_rg_uk_south[0].name
   master    = azurerm_container_group.master.fqdn
   count = var.count_westeu
 }

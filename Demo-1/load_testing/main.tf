@@ -96,7 +96,7 @@ module "load-west-eu" {
   location  = azurerm_resource_group.load_rg_uk_south[0].location
   rg_name   = azurerm_resource_group.load_rg_uk_south[0].name
   master    = azurerm_container_group.master.fqdn
-  count = var.count_westeu
+  count = var.count_uksouth
 }
 
 module "load-asia" {

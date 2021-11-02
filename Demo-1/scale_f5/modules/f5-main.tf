@@ -218,7 +218,7 @@ module "azure_f5" {
 
 resource "null_resource" "add-app1" {
   triggers = {
-    vm_name   = "app1"
+    vm_name   = "${module.azure_f5.name}-app1"
     vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password
@@ -248,7 +248,7 @@ resource "null_resource" "add-app1" {
 
 resource "null_resource" "add-pool-member-app1" {
   triggers = {
-    vm_name   = "app1"
+    vm_name   = "${module.azure_f5.name}-app1"
     vm_ip     = azurerm_public_ip.pip_app1.ip_address
     username  = var.username
     password  = var.password

@@ -1,1 +1,22 @@
-{}
+{
+  "GSLB": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "F5_Ext_Private_IP": "string",
+        "F5_Ext_Public_IP": "string",
+        "F5_Mgmt_Public_IP": "string",
+        "f5_password": "string",
+        "f5_username": "string"
+      }
+    ],
+    "value": {
+      "F5_Ext_Private_IP": "10.1.10.4",
+      "F5_Ext_Public_IP": "40.71.58.216",
+      "F5_Mgmt_Public_IP": "168.61.46.245",
+      "f5_password": "Kostas123",
+      "f5_username": "azureuser"
+    }
+  }
+}

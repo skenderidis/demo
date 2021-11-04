@@ -16,8 +16,8 @@
     ],
     "value": [
       {
-        "App-Server-01": "20.120.6.169",
-        "App-Server-02": "20.120.2.162",
+        "App_Server_01": "20.120.6.169",
+        "App_Server_02": "20.120.2.162",
         "Vnet": "Primary-App-app-rg-uwq3"
       }
     ]

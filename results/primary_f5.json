@@ -1,0 +1,27 @@
+{
+  "bigip_primary": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        [
+          "object",
+          {
+            "App1_Public_IP": "string",
+            "App2_Public_IP": "string",
+            "App3_Public_IP": "string",
+            "F5_Mgmt_Public_IP": "string"
+          }
+        ]
+      ]
+    ],
+    "value": [
+      {
+        "App1_Public_IP": "52.170.249.120",
+        "App2_Public_IP": "52.179.13.19",
+        "App3_Public_IP": "40.121.46.68",
+        "F5_Mgmt_Public_IP": "40.71.0.47"
+      }
+    ]
+  }
+}

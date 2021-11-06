@@ -8,24 +8,24 @@ locals{
 module "apps-us" {
   source    = "./modules"
   gtm_ip    = local.gslb_data.mgmt_ip
-  location  = "eastus"
+  location  = "westus"
   rg_prefix = "App-eastus"
   username	= var.username
   password	= var.password
   pool      = "app_america_pool"
-  count = 0
+  count = count_westus
 }
 
 # Create a resource group for Demo
 module "apps-europe" {
   source    = "./modules"
   gtm_ip    = local.gslb_data.mgmt_ip
-  location  = "northeurope"
+  location  = "uksouth"
   rg_prefix = "App-europe"
   username	= var.username
   password	= var.password
   pool      = "app_europe_pool"
-  count = 1
+  count = count_uksouth
 }
 
 
@@ -33,12 +33,12 @@ module "apps-europe" {
 module "apps-asia" {
   source    = "./modules"
   gtm_ip    = local.gslb_data.mgmt_ip
-  location  = "northeurope"
+  location  = "eastasia"
   rg_prefix = "App-asia"
   username	= var.username
   password	= var.password
   pool      = "app_asia_pool"
-  count = 1
+  count = count_eastasia
 }
 
 output "america_public_ips" {
@@ -52,5 +52,6 @@ output "europe_public_ips" {
 output "asia_public_ips" {
   value = module.apps-asia[*]
 }
+
 
 

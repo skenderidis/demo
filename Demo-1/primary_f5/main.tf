@@ -4,10 +4,10 @@ locals{
 
 
 # Create a resource group for Demo
-module "bigip-east-us" {
+module "bigip_primary" {
   source    = "./modules"
   location  = "eastus"
-  rg_prefix    = "Primary-DC"
+  rg_prefix = "Primary-DC"
   gtm_ip    = local.gslb_data.mgmt_ip
   username	= var.username
   password	= var.password
@@ -17,52 +17,3 @@ module "bigip-east-us" {
   
 }
 
-
-module "bigip-west-us" {
-  source    = "./modules"
-  location  = "westus"
-  rg_prefix    = "Demo-eastus"
-  gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
-  pool      = "america_pool" 
-  sd_fqdn   = "us.f5demo.cloud"
-  count = 0
-}
-
-
-module "bigip-north-eu" {
-  source    = "./modules"
-  location  = "northeurope"
-  rg_prefix = "Demo-north-eu"
-  gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
-  pool      = "europe_pool" 
-  sd_fqdn   = "eu.f5demo.cloud"
-  count = 0
-}
-
-module "bigip-west-eu" {
-  source    = "./modules"
-  location  = "westeurope"
-  rg_prefix = "Demo-west-eu"
-  gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
-  pool      = "europe_pool" 
-  sd_fqdn   = "eu.f5demo.cloud"
-  count = 0
-}
-
-module "bigip-asia" {
-  source    = "./modules"
-  location  = "eastasia"
-  rg_prefix = "Demo-asia"
-  gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
-  pool      = "asia_pool"
-  sd_fqdn   = "as.f5demo.cloud"
-  count = 0
-}

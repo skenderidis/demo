@@ -13,8 +13,8 @@
     ],
     "value": {
       "F5_Ext_Private_IP": "10.1.10.4",
-      "F5_Ext_Public_IP": "40.71.121.13",
-      "F5_Mgmt_Public_IP": "40.71.161.234",
+      "F5_Ext_Public_IP": "20.119.51.223",
+      "F5_Mgmt_Public_IP": "20.119.51.200",
       "f5_password": "Kostas580",
       "f5_username": "azureuser"
     }

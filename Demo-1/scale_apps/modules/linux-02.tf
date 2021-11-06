@@ -158,3 +158,4 @@ resource "null_resource" "add-pool-member-02" {
     on_failure = continue
 }  
 }
+

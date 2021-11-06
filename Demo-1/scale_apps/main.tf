@@ -4,19 +4,29 @@ locals{
 }
 
 
-# Create a resource group for Demo
-module "apps-us" {
+module "apps-west-us" {
   source    = "./modules"
   gtm_ip    = local.gslb_data.mgmt_ip
   location  = "westus"
-  rg_prefix = "App-eastus"
+  rg_prefix = "App-west-us"
   username	= var.username
   password	= var.password
   pool      = "app_america_pool"
-  count = count_westus
+  count     = var.count_westus
 }
 
-# Create a resource group for Demo
+module "apps-east-us" {
+  source    = "./modules"
+  gtm_ip    = local.gslb_data.mgmt_ip
+  location  = "eastus"
+  rg_prefix = "App-east-us"
+  username	= var.username
+  password	= var.password
+  pool      = "app_america_pool"
+  count     = var.count_eastus
+}
+
+
 module "apps-europe" {
   source    = "./modules"
   gtm_ip    = local.gslb_data.mgmt_ip
@@ -25,11 +35,10 @@ module "apps-europe" {
   username	= var.username
   password	= var.password
   pool      = "app_europe_pool"
-  count = count_uksouth
+  count = var.count_uksouth
 }
 
 
-# Create a resource group for Demo
 module "apps-asia" {
   source    = "./modules"
   gtm_ip    = local.gslb_data.mgmt_ip
@@ -38,17 +47,18 @@ module "apps-asia" {
   username	= var.username
   password	= var.password
   pool      = "app_asia_pool"
-  count = count_eastasia
+  count     = var.count_eastasia
 }
 
-output "america_public_ips" {
-  value = module.apps-us[*]
+output "east_us_public_ips" {
+  value = module.apps-east-us[*]
 }
-
+output "west_us_public_ips" {
+  value = module.apps-west-us[*]
+}
 output "europe_public_ips" {
   value = module.apps-europe[*]
 }
-
 output "asia_public_ips" {
   value = module.apps-asia[*]
 }

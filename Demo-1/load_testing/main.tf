@@ -83,13 +83,6 @@ module "load-west-us" {
   count     = var.count_westus
 }
 
-module "load-north-eu" {
-  source    = "./modules"
-  location  = azurerm_resource_group.load_rg_north_eu[0].location
-  rg_name   = azurerm_resource_group.load_rg_north_eu[0].name
-  master    = azurerm_container_group.master.fqdn
-  count = var.count_northeu
-}
 
 module "load-west-eu" {
   source    = "./modules"

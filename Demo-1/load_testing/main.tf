@@ -51,11 +51,6 @@ resource "azurerm_resource_group" "load_rg_west_us" {
   name      = "Load-West-us"
   location  = "westus"
 }
-resource "azurerm_resource_group" "load_rg_north_eu" {
-  count     = var.count_northeu >= 1 ? 1 : 0
-  name      = "Load-North-eu"
-  location  = "northeurope"
-}
 resource "azurerm_resource_group" "load_rg_uk_south" {
   count     = var.count_uksouth >= 1 ? 1 : 0
   name      = "Load-West-eu"

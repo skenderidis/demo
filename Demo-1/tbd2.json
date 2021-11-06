@@ -1,0 +1,11 @@
+{
+    "name": "foo",
+    "array": [
+      {
+        "name": "bar",
+        "thing": true
+      }
+    ]
+  }
+
+

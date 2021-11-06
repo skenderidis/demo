@@ -16,9 +16,9 @@
     ],
     "value": [
       {
-        "App_Server_01": "52.168.82.10",
-        "App_Server_02": "52.179.13.11",
-        "Vnet": "Primary-App-app-rg-bglc"
+        "App_Server_01": "20.120.3.220",
+        "App_Server_02": "20.120.3.170",
+        "Vnet": "Primary-App-app-rg-3nek"
       }
     ]
   }

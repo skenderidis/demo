@@ -2,7 +2,7 @@
   "Vnet": {
     "sensitive": false,
     "type": "string",
-    "value": "ks-observe-rg-r2gj"
+    "value": "ks-observe-rg-9fir"
   },
   "private_ip": {
     "sensitive": false,
@@ -12,6 +12,6 @@
   "public_ip": {
     "sensitive": false,
     "type": "string",
-    "value": "168.61.48.215"
+    "value": "20.119.51.225"
   }
 }

@@ -17,10 +17,10 @@
     ],
     "value": [
       {
-        "App1_Public_IP": "52.170.249.120",
-        "App2_Public_IP": "52.179.13.19",
-        "App3_Public_IP": "40.121.46.68",
-        "F5_Mgmt_Public_IP": "40.71.0.47"
+        "App1_Public_IP": "20.85.229.219",
+        "App2_Public_IP": "20.120.3.141",
+        "App3_Public_IP": "20.120.3.183",
+        "F5_Mgmt_Public_IP": "20.119.52.75"
       }
     ]
   }

@@ -9,8 +9,8 @@ module "apps-west-us" {
   gtm_ip    = local.gslb_data.mgmt_ip
   location  = "westus"
   rg_prefix = "App-west-us"
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "app_america_pool"
   count     = var.count_westus
 }
@@ -20,8 +20,8 @@ module "apps-east-us" {
   gtm_ip    = local.gslb_data.mgmt_ip
   location  = "eastus"
   rg_prefix = "App-east-us"
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "app_america_pool"
   count     = var.count_eastus
 }
@@ -32,8 +32,8 @@ module "apps-europe" {
   gtm_ip    = local.gslb_data.mgmt_ip
   location  = "uksouth"
   rg_prefix = "App-europe"
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "app_europe_pool"
   count = var.count_uksouth
 }
@@ -44,8 +44,8 @@ module "apps-asia" {
   gtm_ip    = local.gslb_data.mgmt_ip
   location  = "eastasia"
   rg_prefix = "App-asia"
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "app_asia_pool"
   count     = var.count_eastasia
 }

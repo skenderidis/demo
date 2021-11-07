@@ -1,0 +1,25 @@
+{
+  "App_web01_Public_IP": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        [
+          "object",
+          {
+            "App_Server_01": "string",
+            "App_Server_02": "string",
+            "Vnet": "string"
+          }
+        ]
+      ]
+    ],
+    "value": [
+      {
+        "App_Server_01": "52.152.170.174",
+        "App_Server_02": "52.152.170.168",
+        "Vnet": "Primary-App-app-rg-f7mz"
+      }
+    ]
+  }
+}

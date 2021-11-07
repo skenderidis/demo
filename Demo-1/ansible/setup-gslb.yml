@@ -210,33 +210,33 @@
     delegate_to: localhost
 
 
-  - name: Create eu.f5demo.cloud wideIP
+  - name: Create apps-eu.f5demo.cloud wideIP
     bigip_gtm_wide_ip:
       pool_lb_method: topology
       last_resort_pool: app_europe_pool
-      name: eu.f5demo.cloud
+      name: apps-eu.f5demo.cloud
       type: a
       pools:
         - name: app_europe_pool
       provider: "{{ provider }}"
     delegate_to: localhost
 
-  - name: Create us.f5demo.cloud wideIP
+  - name: Create apps-us.f5demo.cloud wideIP
     bigip_gtm_wide_ip:
       pool_lb_method: topology
       last_resort_pool: app_america_pool
-      name: us.f5demo.cloud
+      name: apps-us.f5demo.cloud
       type: a
       pools:
         - name: app_america_pool
       provider: "{{ provider }}"
     delegate_to: localhost
 
-  - name: Create as.f5demo.cloud wideIP
+  - name: Create apps-as.f5demo.cloud wideIP
     bigip_gtm_wide_ip:
       pool_lb_method: topology
       last_resort_pool: app_asia_pool
-      name: as.f5demo.cloud
+      name: apps-as.f5demo.cloud
       type: a
       pools:
         - name: app_asia_pool
@@ -251,5 +251,38 @@
       type: a
       pools:
         - name: bigip_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create bigip-eu.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: topology
+      last_resort_pool: europe_pool
+      name: bigip-eu.f5demo.cloud
+      type: a
+      pools:
+        - name: europe_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create bigip-us.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: topology
+      last_resort_pool: america_pool
+      name: bigip-us.f5demo.cloud
+      type: a
+      pools:
+        - name: america_pool
+      provider: "{{ provider }}"
+    delegate_to: localhost
+
+  - name: Create bigip-as.f5demo.cloud wideIP
+    bigip_gtm_wide_ip:
+      pool_lb_method: topology
+      last_resort_pool: asia_pool
+      name: bigip-as.f5demo.cloud
+      type: a
+      pools:
+        - name: asia_pool
       provider: "{{ provider }}"
     delegate_to: localhost

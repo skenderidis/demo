@@ -37,8 +37,8 @@ resource "azurerm_dns_ns_record" "delegation-www" {
   records = ["${azurerm_dns_a_record.gslb_dns.name}.${var.zone_name}"]
 }
 
-resource "azurerm_dns_ns_record" "delegation-eu" {
-  name                = "eu"
+resource "azurerm_dns_ns_record" "delegation-apps-eu" {
+  name                = "apps-eu"
   zone_name           = var.zone_name
   resource_group_name = var.rg_zone
   ttl                 = 10
@@ -46,8 +46,8 @@ resource "azurerm_dns_ns_record" "delegation-eu" {
   records = ["${azurerm_dns_a_record.gslb_dns.name}.${var.zone_name}"]
 }
 
-resource "azurerm_dns_ns_record" "delegation-as" {
-  name                = "as"
+resource "azurerm_dns_ns_record" "delegation-apps-as" {
+  name                = "apps-as"
   zone_name           = var.zone_name
   resource_group_name = var.rg_zone
   ttl                 = 10
@@ -55,8 +55,8 @@ resource "azurerm_dns_ns_record" "delegation-as" {
   records = ["${azurerm_dns_a_record.gslb_dns.name}.${var.zone_name}"]
 }
 
-resource "azurerm_dns_ns_record" "delegation-us" {
-  name                = "us"
+resource "azurerm_dns_ns_record" "delegation-apps-us" {
+  name                = "apps-us"
   zone_name           = var.zone_name
   resource_group_name = var.rg_zone
   ttl                 = 10
@@ -66,6 +66,33 @@ resource "azurerm_dns_ns_record" "delegation-us" {
 
 resource "azurerm_dns_ns_record" "delegation-bigip" {
   name                = "bigip"
+  zone_name           = var.zone_name
+  resource_group_name = var.rg_zone
+  ttl                 = 10
+
+  records = ["${azurerm_dns_a_record.gslb_dns.name}.${var.zone_name}"]
+}
+
+resource "azurerm_dns_ns_record" "delegation-bigip-eu" {
+  name                = "bigip-eu"
+  zone_name           = var.zone_name
+  resource_group_name = var.rg_zone
+  ttl                 = 10
+
+  records = ["${azurerm_dns_a_record.gslb_dns.name}.${var.zone_name}"]
+}
+
+resource "azurerm_dns_ns_record" "delegation-bigip-as" {
+  name                = "bigip-as"
+  zone_name           = var.zone_name
+  resource_group_name = var.rg_zone
+  ttl                 = 10
+
+  records = ["${azurerm_dns_a_record.gslb_dns.name}.${var.zone_name}"]
+}
+
+resource "azurerm_dns_ns_record" "delegation-bigip-us" {
+  name                = "bigip-us"
   zone_name           = var.zone_name
   resource_group_name = var.rg_zone
   ttl                 = 10

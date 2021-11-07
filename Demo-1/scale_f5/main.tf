@@ -9,8 +9,8 @@ module "bigip-east-us" {
   location  = "eastus"
   rg_prefix = "F5-eastus"
   gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "america_pool"
   sd_fqdn   = "apps-us.f5demo.cloud"
   count     = var.count_eastus
@@ -22,8 +22,8 @@ module "bigip-west-us" {
   location  = "westus"
   rg_prefix = "F5-westus"
   gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "america_pool" 
   sd_fqdn   = "apps-us.f5demo.cloud"
   count     = var.count_westus
@@ -34,8 +34,8 @@ module "bigip-west-eu" {
   location  = "uksouth"
   rg_prefix = "F5-eu"
   gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "europe_pool" 
   sd_fqdn   = "apps-eu.f5demo.cloud"
   count     = var.count_uksouth
@@ -46,8 +46,8 @@ module "bigip-asia" {
   location  = "eastasia"
   rg_prefix = "F5-asia"
   gtm_ip    = local.gslb_data.mgmt_ip
-  username	= var.username
-  password	= var.password
+  username	= local.gslb_data.f5_user
+  password	= local.gslb_data.f5_pass
   pool      = "asia_pool"
   sd_fqdn   = "apps-as.f5demo.cloud"
   count     = var.count_eastasia

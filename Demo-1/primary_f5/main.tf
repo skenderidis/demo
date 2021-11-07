@@ -12,7 +12,7 @@ module "bigip_primary" {
   username	= var.username
   password	= var.password
   pool      = "america_pool"
-  sd_fqdn   = "us.f5demo.cloud"
+  sd_fqdn   = "apps-us.f5demo.cloud"
   count = 1
   
 }

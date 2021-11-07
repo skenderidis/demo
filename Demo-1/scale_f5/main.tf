@@ -12,7 +12,7 @@ module "bigip-east-us" {
   username	= var.username
   password	= var.password
   pool      = "america_pool"
-  sd_fqdn   = "us.f5demo.cloud"
+  sd_fqdn   = "apps-us.f5demo.cloud"
   count     = var.count_eastus
  
 }
@@ -25,7 +25,7 @@ module "bigip-west-us" {
   username	= var.username
   password	= var.password
   pool      = "america_pool" 
-  sd_fqdn   = "us.f5demo.cloud"
+  sd_fqdn   = "apps-us.f5demo.cloud"
   count     = var.count_westus
 }
 
@@ -37,7 +37,7 @@ module "bigip-west-eu" {
   username	= var.username
   password	= var.password
   pool      = "europe_pool" 
-  sd_fqdn   = "eu.f5demo.cloud"
+  sd_fqdn   = "apps-eu.f5demo.cloud"
   count     = var.count_uksouth
 }
 
@@ -49,6 +49,6 @@ module "bigip-asia" {
   username	= var.username
   password	= var.password
   pool      = "asia_pool"
-  sd_fqdn   = "as.f5demo.cloud"
+  sd_fqdn   = "apps-as.f5demo.cloud"
   count     = var.count_eastasia
 }

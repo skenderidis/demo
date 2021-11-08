@@ -1,0 +1,17 @@
+{
+  "Vnet": {
+    "sensitive": false,
+    "type": "string",
+    "value": "ks-observe-rg-tx6k"
+  },
+  "private_ip": {
+    "sensitive": false,
+    "type": "string",
+    "value": "10.10.30.4"
+  },
+  "public_ip": {
+    "sensitive": false,
+    "type": "string",
+    "value": "40.71.123.0"
+  }
+}

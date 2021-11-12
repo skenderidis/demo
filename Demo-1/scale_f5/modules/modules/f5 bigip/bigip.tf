@@ -138,8 +138,6 @@ data "template_file" "f5_bigip_onboard" {
     self-ip-ext                 = var.self_ip_ext
     gateway                     = cidrhost(format("%s/24", var.self_ip_ext), 1)
     self-ip-int                 = var.self_ip_int
-
-
   }
 }
 

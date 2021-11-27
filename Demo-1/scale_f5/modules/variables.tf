@@ -11,7 +11,7 @@
 
 
 #########   Common Variables   ##########
-variable tag 					{default = "CIS - Kubernetes Demo"}
+variable tag 					{default = "k.skenderidis@f5.com"}
 variable password		  		{default = "Kostas123"}
 variable username		  		{default = "azureuser"}
 variable location				{default = "eastus"}

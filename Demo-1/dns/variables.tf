@@ -12,7 +12,7 @@ variable tenant_id				{}
 
 #########   Common Variables   ##########
 
-variable tag 		        { default = "Kostas Automation Demo" }
+variable tag 					{default = "k.skenderidis@f5.com"}
 variable location 			{ default = "eastus" }
 variable zone_name 			{ default = "f5demo.cloud" }
 variable rg_zone         	{ default = "f5demo_dns" }

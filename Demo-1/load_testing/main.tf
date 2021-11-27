@@ -44,22 +44,22 @@ resource "azurerm_container_group" "master" {
 resource "azurerm_resource_group" "load_rg_east_us" {
   count     = var.count_eastus >= 1 ? 1 : 0
   name      = "Load-East-us"
-  location  = "norwaywest"
+  location  = "norwayeast"
 }
 resource "azurerm_resource_group" "load_rg_west_us" {
   count     = var.count_westus >= 1 ? 1 : 0
   name      = "Load-West-us"
-  location  = "germanynorth"
+  location  = "germanywestcentral"
 }
 resource "azurerm_resource_group" "load_rg_uk_south" {
   count     = var.count_uksouth >= 1 ? 1 : 0
   name      = "Load-West-eu"
-  location  = "switzerlandwest"
+  location  = "switzerlandnorth"
 }
 resource "azurerm_resource_group" "load_rg_easteasia" {
   count     = var.count_eastasia >= 1 ? 1 : 0
   name      = "Load-east-asia"
-  location  = "eastasia"
+  location  = "southafricanorth"
 }
 
 

@@ -54,7 +54,7 @@ resource "azurerm_resource_group" "load_rg_west_us" {
 resource "azurerm_resource_group" "load_rg_uk_south" {
   count     = var.count_uksouth >= 1 ? 1 : 0
   name      = "Load-West-eu"
-  location  = "uksouth"
+  location  = "francecentral"
 }
 resource "azurerm_resource_group" "load_rg_easteasia" {
   count     = var.count_eastasia >= 1 ? 1 : 0

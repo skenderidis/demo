@@ -40,57 +40,77 @@ resource "azurerm_container_group" "master" {
   }
 }
 
-
+/*
 resource "azurerm_resource_group" "load_rg_east_us" {
   count     = var.count_eastus >= 1 ? 1 : 0
   name      = "Load-East-us"
-  location  = "norwayeast"
+  location  = "eastus"
 }
 resource "azurerm_resource_group" "load_rg_west_us" {
   count     = var.count_westus >= 1 ? 1 : 0
   name      = "Load-West-us"
-  location  = "germanywestcentral"
+  location  = "westus"
 }
 resource "azurerm_resource_group" "load_rg_uk_south" {
   count     = var.count_uksouth >= 1 ? 1 : 0
   name      = "Load-West-eu"
-  location  = "switzerlandnorth"
+  location  = "uknorth"
 }
 resource "azurerm_resource_group" "load_rg_easteasia" {
   count     = var.count_eastasia >= 1 ? 1 : 0
   name      = "Load-east-asia"
-  location  = "southafricanorth"
+  location  = "eastasia"
 }
+*/
 
+resource "azurerm_resource_group" "load_worker" {
+  name      = "Load-worker-${random_string.suffix.result}"
+  location  = "eastus"
+}
 
 module "load-east-us" {
   source    = "./modules"
-  location  = azurerm_resource_group.load_rg_east_us[0].location
-  rg_name   = azurerm_resource_group.load_rg_east_us[0].name
+  location  = "eastus"
+  rg_name   = azurerm_resource_group.load_worker.name
   master    = azurerm_container_group.master.fqdn
   count     = var.count_eastus
 }
 module "load-west-us" {
   source    = "./modules"
-  location  = azurerm_resource_group.load_rg_west_us[0].location
-  rg_name   = azurerm_resource_group.load_rg_west_us[0].name
+  location  = "westus"
+  rg_name   = azurerm_resource_group.load_worker.name
   master    = azurerm_container_group.master.fqdn
   count     = var.count_westus
 }
 
-
-module "load-west-eu" {
+module "load-eu" {
   source    = "./modules"
-  location  = azurerm_resource_group.load_rg_uk_south[0].location
-  rg_name   = azurerm_resource_group.load_rg_uk_south[0].name
+  location  = "westeurope"
+  rg_name   = azurerm_resource_group.load_worker.name
   master    = azurerm_container_group.master.fqdn
-  count = var.count_uksouth
+  count     = var.count_eu
 }
 
-module "load-asia" {
+module "load-uk" {
   source    = "./modules"
-  location  = azurerm_resource_group.load_rg_easteasia[0].location
-  rg_name   = azurerm_resource_group.load_rg_easteasia[0].name
+  location  = "uksouth"
+  rg_name   = azurerm_resource_group.load_worker.name
   master    = azurerm_container_group.master.fqdn
-  count = var.count_eastasia
+  count     = var.count_uk
+}
+
+module "load-eastasia" {
+  source    = "./modules"
+  location  = "eastasia"
+  rg_name   = azurerm_resource_group.load_worker.name
+  master    = azurerm_container_group.master.fqdn
+  count = var.count_asia
+}
+
+module "load-australia" {
+  source    = "./modules"
+  location  = "australiasoutheast"
+  rg_name   = azurerm_resource_group.load_worker.name
+  master    = azurerm_container_group.master.fqdn
+  count = var.count_au
 }

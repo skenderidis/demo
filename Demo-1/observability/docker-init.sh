@@ -13,9 +13,9 @@ apt-get install -y docker-ce
 sudo sysctl -w vm.max_map_count=262144
 
 git clone https://github.com/skenderidis/demo
-cp demo/Demo-1/GeoLite2-Country.mmdb /tmp/GeoLite2-Country.mmdb
-cp demo/Demo-1/GeoLite2-City.mmdb /tmp/GeoLite2-City.mmdb
-cp demo/Demo-1/GeoLite2-ASN.mmdb /tmp/GeoLite2-ASN.mmdb
+cp demo/Demo-1/test1.db /tmp/GeoLite2-Country.mmdb
+cp demo/Demo-1/test2.db /tmp/GeoLite2-City.mmdb
+cp demo/Demo-1/test3.db /tmp/GeoLite2-ASN.mmdb
 
 
 

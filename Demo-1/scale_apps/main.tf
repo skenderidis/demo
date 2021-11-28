@@ -64,4 +64,15 @@ output "asia_public_ips" {
 }
 
 
-
+output "europe" {
+  value = var.count_uksouth
+}
+output "us_west" {
+  value = var.count_westus
+}
+output "us_east" {
+  value = var.count_eastus
+}
+output "asia" {
+  value = var.count_eastasia
+}
